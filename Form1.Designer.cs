@@ -29,35 +29,47 @@ namespace AbreDico
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.panelMIAP = new System.Windows.Forms.Panel();
+            this.BtCreateTree = new System.Windows.Forms.Button();
+            this.panelMIAP.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button1
+            // panelMIAP
             // 
-            this.button1.Location = new System.Drawing.Point(88, 102);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.panelMIAP.AccessibleRole = System.Windows.Forms.AccessibleRole.Grip;
+            this.panelMIAP.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panelMIAP.Controls.Add(this.BtCreateTree);
+            this.panelMIAP.Location = new System.Drawing.Point(252, 32);
+            this.panelMIAP.Name = "panelMIAP";
+            this.panelMIAP.Size = new System.Drawing.Size(505, 380);
+            this.panelMIAP.TabIndex = 1;
+            // 
+            // BtCreateTree
+            // 
+            this.BtCreateTree.Location = new System.Drawing.Point(31, 30);
+            this.BtCreateTree.Name = "BtCreateTree";
+            this.BtCreateTree.Size = new System.Drawing.Size(413, 41);
+            this.BtCreateTree.TabIndex = 0;
+            this.BtCreateTree.Text = "Création de l\'arbre";
+            this.BtCreateTree.UseVisualStyleBackColor = true;
+            this.BtCreateTree.Click += new System.EventHandler(this.BtCreateTree_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.panelMIAP);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.panelMIAP.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Panel panelMIAP;
+        private System.Windows.Forms.Button BtCreateTree;
     }
 }
 
