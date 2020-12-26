@@ -37,21 +37,14 @@ namespace AbreDico
             InitializeComponent();
         }
 
-        public void AjouteNoeud(Noeud NoeudParent, Noeud NoeudEnfant, char l)
-        // Ajoute un noeud dans le dictionnaire parent
-        {
-            if (NoeudParent.DictionnaireDesSousNoeuds == null)
-            {
-                NoeudParent.DictionnaireDesSousNoeuds = new Dictionary<char, Noeud>();
-            }
-            NoeudParent.DictionnaireDesSousNoeuds.Add(l, NoeudEnfant);
-        }
+      
 
         public void VerifAjoutLettre(Noeud NP, int rang, string Word)
         {
-            char l;
+            char l;            
             l = Word[rang];
             int lg = Word.Length;
+           // MessageBox.Show("traitement de " + Word + " Rang =" + rang.ToString() + " Lettre=" + l.ToString()) ;
             if (NP.DictionnaireDesSousNoeuds == null)
             {
                 NP.DictionnaireDesSousNoeuds = new Dictionary<char, Noeud>();
@@ -76,14 +69,20 @@ namespace AbreDico
                 Noeud NE = new Noeud();
                 NE.Lettre = l;
                 if (rang == Word.Length - 1)
-                {
+                {   // dernière lettre du mot  : On ajoute le noeud correspondant
                     NE.FinDeMot = true;
+                    NP.DictionnaireDesSousNoeuds.Add(l, NE);
                 }
                 else
-                {
+                {   // PAS dernière lettre du mot  : On ajoute le noeud correspondant et on incémente rang et on relance récursivement la procédure
                     NE.FinDeMot = false;
+                    NP.DictionnaireDesSousNoeuds.Add(l, NE);
+                    rang++;
+                    VerifAjoutLettre(NE, rang, Word);
                 }
-                NP.DictionnaireDesSousNoeuds.Add(l, NE);
+               
+             //  rang++;
+               // VerifAjoutLettre(NP, rang, Word);
             }
         }
 
@@ -93,30 +92,31 @@ namespace AbreDico
             // Création de l'arbre à partir du fichier texte.
             //========================
             // initialisation du dictionnaire
-            string NomDuDico = "H:\\Famille\\GERALD\\visual_Studio\\Arbre_Dico\\fichierTest.txt";
-            if (!File.Exists(NomDuDico))
-            {
-                MessageBox.Show(NomDuDico + " n'existe pas");
-            }
+                string NomDuDico = "H:\\Famille\\GERALD\\visual_Studio\\Arbre_Dico\\fichierTest.txt";
+                if (!File.Exists(NomDuDico))
+                {
+                    MessageBox.Show(NomDuDico + " n'existe pas");
+                }
             else
             {
-                // le fichier existe : Lecture
+             // le fichier existe : Lecture
                 string[] lignesDico = System.IO.File.ReadAllLines(NomDuDico);
                 // Traitement des données==========
-                //création de la racine
+            //création de la racine
                 Noeud Racine = new Noeud();
-                Racine.Lettre = ' ';
-                Racine.FinDeMot = false;
-                Racine.DictionnaireDesSousNoeuds = null;
-                // traitement des mots
+                    Racine.Lettre = ' ';
+                    Racine.FinDeMot = false;
+                    Racine.DictionnaireDesSousNoeuds = null;
+            // traitement des mots
                 for (int i = 0; i <= lignesDico.Length - 1; i++)  // traitement des lettres du mot
                 {
                     mot = lignesDico[i];
+                   // MessageBox.Show(mot);
                     // première lettre sous la racine                        
                     VerifAjoutLettre(Racine, 0, mot);       // la procédure doit s'appeler récursivement 
-                                                            //pour finir la construction de l'arbre pour ce mot                                       
-                    MessageBox.Show(mot);
+                                                            //pour finir la construction de l'arbre pour ce mot                                                         
                 }
+                MessageBox.Show("Arbre construit");
             }
 
         }
