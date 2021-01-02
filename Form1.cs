@@ -99,50 +99,8 @@ namespace AbreDico
             }
         }
 
-        //private void DecodeArbre(Noeud NP) // Lecture des mots
-        //{
-        //    StreamWriter sw2 = new StreamWriter(MotResultatNom);
-        //    try
-        //    {
-        //        if (NP.DictionnaireDesSousNoeuds != null)
-        //        {   // dictionnaire du noeud existe              
-        //            foreach (KeyValuePair<char, Noeud> cle in NP.DictionnaireDesSousNoeuds)
-        //            {
-        //                if (cle.Value.DictionnaireDesSousNoeuds == null)
-        //                { // n'a pas d'enfant             
-        //                    sw2.WriteLine(cle.Value.Lettre);
-        //                    //  this.listBox1.Items.Add(cle.Value.Lettre+".");                   
-        //                }
-        //                else
-        //                { // a des enfants                                          
-        //                    if (cle.Value.FinDeMot)
-        //                    {
-        //                        sw2.WriteLine(cle.Value.Lettre);
-        //                        //  this.listBox1.Items.Add(cle.Value.Lettre + "=>");
-        //                    }
-        //                    else
-        //                    {
-        //                        sw2.WriteLine(cle.Value.Lettre);
-        //                        // this.listBox1.Items.Add(cle.Value.Lettre + "=> ...");
-        //                    }
-        //                    DecodeArbre(cle.Value);
-        //                }
-        //            }
-        //        }
-        //    }
-        //    catch
-        //    {
-        //        throw;
-        //    }
-        //    finally
-        //    {
-        //        sw2.Close();
-        //    }
-        //}
-
         private void Init()  // initialisation des données
         {
-            string mot;
             this.pictureBox1.Visible = true;
             // Création de l'arbre à partir du fichier texte.
             //===================
@@ -156,27 +114,29 @@ namespace AbreDico
             {
                 // le fichier existe : Lecture
                 string[] lignesDico = System.IO.File.ReadAllLines(NomDuDico);
-                // Traitement des données==========
-                //création de la racine
-                Noeud Racine = new Noeud();
-                Racine.Lettre = ' ';
-                Racine.FinDeMot = false;
-                Racine.DictionnaireDesSousNoeuds = null;
-                // traitement des mots               
-                for (int i = 0; i <= lignesDico.Length - 1; i++)  // traitement des lettres du mot
-                {
-                    mot = lignesDico[i];
-                    //  this.listBox2.Items.Add(mot);
-                    //  MessageBox.Show(mot);
-                    // Création de la branche correspondant au mot par passage du noeud racine à la prcédure récussive VerifAjouteLettre                     
-                    AjoutLettreCouranteSiBesoin(Racine, 0, mot);
-                }
-                // lecture de l'arbre                             
-                //DecodeArbre(Racine);
+                CreationArbreDico(lignesDico);
                 this.pictureBox1.Left += 50;
-                this.NoeudRacine = Racine; // affecte à NoeudRacine accessible partout dans form1 la valeur du pointeur de Racine
                 this.pictureBox1.Visible = false;
             }
+        }
+
+        private void CreationArbreDico(string[] lignesDico)
+        {
+            //création de la racine
+            Noeud racine = new Noeud();
+            racine.Lettre = ' ';
+            racine.FinDeMot = false;
+            racine.DictionnaireDesSousNoeuds = null;
+            // traitement des mots               
+            for (int i = 0; i <= lignesDico.Length - 1; i++)  // traitement des lettres du mot
+            {
+                string mot = lignesDico[i];
+                //  this.listBox2.Items.Add(mot);
+                //  MessageBox.Show(mot);
+                // Création de la branche correspondant au mot par passage du noeud racine à la prcédure récussive VerifAjouteLettre                     
+                AjoutLettreCouranteSiBesoin(racine, 0, mot);
+            }
+            this.NoeudRacine = racine; // affecte à NoeudRacine accessible partout dans form1 la valeur du pointeur de Racine
         }
 
         private void BtVerifMot(object sender, EventArgs e)
@@ -202,37 +162,28 @@ namespace AbreDico
             MessageBox.Show(msg);
         }
 
-        public Noeud Nt2;
-
         bool VerifMot(string Mot)
         {
-            int lg = Mot.Length - 1;
-            Noeud Nt = NoeudRacine;
-            for (int i = 0; i <= lg; i++) // Faire pour toutes les lettres du mot
+            int lg = Mot.Length;
+            Noeud noeudCourant = NoeudRacine;
+            for (int i = 0; i < lg; i++) // Faire pour toutes les lettres du mot
             {
-                char c = Mot[i];
-                if (Nt.DictionnaireDesSousNoeuds != null) // le Dictionnaire du noeud examiné n'est pas null
+                char lettreCourante = Mot[i];
+                if (noeudCourant.DictionnaireDesSousNoeuds != null) // le Dictionnaire du noeud examiné n'est pas null
                 {
-                    if (Nt.DictionnaireDesSousNoeuds.ContainsKey(c))// contient la lettre du mot
+                    if (noeudCourant.DictionnaireDesSousNoeuds.ContainsKey(lettreCourante))// contient la lettre du mot
                     {
-                        foreach (KeyValuePair<char, Noeud> cle in Nt.DictionnaireDesSousNoeuds)
-                        {
-                            if (cle.Key == c) // clé identifièe (pour noeud suivant)
-                            {
-                                Nt2 = cle.Value;
-                            }
-                        }
-                        Nt = Nt2; // affectation du noeud trouvé pour le tour de boucle suivant                           
+                        noeudCourant = noeudCourant.DictionnaireDesSousNoeuds[lettreCourante]; // affectation du noeud trouvé pour le tour de boucle suivant                           
                     }
                     else
                     {  // la lettre n'est pas trouvée !
-                        Nt2 = null;
                         return false;
                     }
                 }
                 else
-                { //le dictionnaire est null
-                    if (i != lg + 1)
+                { 
+                    //le dictionnaire est null
+                    if (i != lg)
                     { 
                         return false; 
                     } // si ce n'est pas la fin de mot c'est anormal on retourne false
