@@ -27,7 +27,10 @@ namespace AbreDico
         //pour en disposer dans Form1
 
         private static readonly string MotResultatNom = "MOTSRESULTAT.txt";
-        
+        Color CouleurDefaut = Color.FromName("DarkMagenta");
+        Color CouleurDeSelection = Color.FromName("Red");
+
+
         //=================================================================
 
         public class Noeud
@@ -49,7 +52,107 @@ namespace AbreDico
         /// <param name="noeudParent">Noeud auquel sera rajoute la lettre si elle n existe pas</param>
         /// <param name="indexLettreCourante">Index de la lettre a rajouter si besoi de la string Word.</param>
         /// <param name="Word">Mot de travail</param>
-        public void AjoutLettreCouranteSiBesoin(Noeud noeudParent, int indexLettreCourante, string Word)  //Création de l'arbre 
+        /// 
+        char[] matrice = new char[16];
+        char[] voyellesCourantes =         {'A','E','I','O','U'};
+        char[] consonnesChiantes = { 'W', 'X', 'J', 'Q','V','K','Y' };
+
+        bool estVoyelle( char lettre)
+        {
+            bool retour = false;
+            for (int i = 0; i < voyellesCourantes.Length; i++)
+            {
+                if ( voyellesCourantes[i] ==lettre)
+                {
+                    retour = true;
+                }
+            }
+            return retour;
+        }
+        bool estConsoleChiante(char lettre)
+        {
+            bool retour = false;
+            for (int i = 0; i < consonnesChiantes.Length; i++)
+            {
+                if (consonnesChiantes[i] == lettre)
+                {
+                    retour = true;
+                }
+            }
+            return retour;
+        }
+        public void creerNouvelleMatrice()
+        {           
+            var rand = new Random();
+            for (int i = 0; i < 16; i++)
+            {
+                int a = rand.Next(65, 90);                
+                matrice[i]= Convert.ToChar(a);
+            }
+            // comptage des voyelles
+            int cptV = 0;
+            for (int j = 0; j < 16; j++)
+            {                
+                for ( int k=0; k<voyellesCourantes.Length; k++)
+                {
+                    if(matrice[j]==voyellesCourantes[k]) { cptV++; };
+                }               
+            }
+            // ajout de voyelles si  nombre de voyelles courantes inférieure à 6
+            if (cptV<6)
+            {
+                for (int l=cptV; l<=6;l++) 
+                {
+                    int b = rand.Next(0, voyellesCourantes.Length-1);
+                    int a= rand.Next(0, matrice.Length-1);
+                    do
+                    {  // cherche une case différent de voyelle
+                         a = rand.Next(0, matrice.Length - 1);
+                    } while (estVoyelle(matrice[a]));
+                    matrice[a] = voyellesCourantes[b]; // remplacement par une voyelle
+                }
+            }
+            // vire le trop plein de consoles chiantes Maxi 1
+            int cptCchiante = 0;
+            for (int j = 0; j < 16; j++) // compte le nombre de consoles chiantes
+            {
+                for (int k = 0; k < consonnesChiantes.Length; k++)
+                {
+                    if (matrice[j] == consonnesChiantes[k]) { cptCchiante++; };
+                }
+            }
+            if(cptCchiante>1)
+            {// échange les consonnes chiantes par des voyelles
+                //MessageBox.Show(cptCchiante.ToString());
+                int compteur = 0;
+                for (int i = 0; i< matrice.Length - 1;i++)
+                {
+                   if (estConsoleChiante( matrice[i]) && compteur<cptCchiante-1)
+                    { // remplace la consonne chiante par une voyelle
+                        int b = rand.Next(0, voyellesCourantes.Length - 1);
+                        matrice[i] = voyellesCourantes[b];
+                    }
+                }
+            }
+
+            dessineMatrice();
+        }
+        public void dessineMatrice()
+        {
+            int j = 0;
+            foreach (Control c in this.Controls)
+            {
+                if (c.GetType() == typeof(Label))
+                {
+                    c.ForeColor = Color.Chocolate;
+                    c.Text = matrice[j].ToString();
+                    c.Width = 40;
+                    j++;                 
+                }
+            }
+        }
+
+            public void AjoutLettreCouranteSiBesoin(Noeud noeudParent, int indexLettreCourante, string Word)  //Création de l'arbre 
         {
             if (Word.Length == 0)
             {
@@ -218,9 +321,25 @@ namespace AbreDico
 
         private void button1_Click(object sender, EventArgs e)
         {
-            timer1.Start();
+            //timer1.Start();
+            creerNouvelleMatrice();
+        }
+     
+        private void L1_Click(object sender, EventArgs e)
+        {
+          //  MessageBox.Show(L1.ForeColor.ToString());
+            if (L1.ForeColor == CouleurDeSelection)
+            { L1.ForeColor = CouleurDefaut; }
+            else { L1.ForeColor = CouleurDeSelection; }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            creerNouvelleMatrice();
         }
     }
+       
+    
 }
 
 
