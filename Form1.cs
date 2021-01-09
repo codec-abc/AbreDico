@@ -29,8 +29,11 @@ namespace AbreDico
         private static readonly string MotResultatNom = "MOTSRESULTAT.txt";
         Color CouleurDefaut = Color.FromName("DarkMagenta");
         Color CouleurDeSelection = Color.FromName("Red");
-
-
+        char[] matrice = new char[16];
+        char[] voyellesCourantes = { 'A', 'E', 'I', 'O', 'U' };
+        char[] consonnesChiantes = { 'W', 'X', 'J', 'Q', 'V', 'K', 'Y' };
+        string motJoueur="";
+        string[] suiteLabelJoueur = new string[16];
         //=================================================================
 
         public class Noeud
@@ -53,9 +56,7 @@ namespace AbreDico
         /// <param name="indexLettreCourante">Index de la lettre a rajouter si besoi de la string Word.</param>
         /// <param name="Word">Mot de travail</param>
         /// 
-        char[] matrice = new char[16];
-        char[] voyellesCourantes =         {'A','E','I','O','U'};
-        char[] consonnesChiantes = { 'W', 'X', 'J', 'Q','V','K','Y' };
+      
 
         bool estVoyelle( char lettre)
         {
@@ -144,7 +145,7 @@ namespace AbreDico
             {
                 if (c.GetType() == typeof(Label))
                 {
-                    c.ForeColor = Color.Chocolate;
+                    c.ForeColor = CouleurDefaut;
                     c.Text = matrice[j].ToString();
                     c.Width = 40;
                     j++;                 
@@ -316,18 +317,18 @@ namespace AbreDico
         private void timer1_Tick(object sender, EventArgs e)
         {
              t++;
-            textBox1.Text = t.ToString();
+          //  textBox1.Text = t.ToString();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             //timer1.Start();
             creerNouvelleMatrice();
+            initialiseSuiteJoueur();
         }
      
         private void L1_Click(object sender, EventArgs e)
-        {
-          //  MessageBox.Show(L1.ForeColor.ToString());
+        {         
             if (L1.ForeColor == CouleurDeSelection)
             { L1.ForeColor = CouleurDefaut; }
             else { L1.ForeColor = CouleurDeSelection; }
@@ -336,6 +337,60 @@ namespace AbreDico
         private void Form1_Load(object sender, EventArgs e)
         {
             creerNouvelleMatrice();
+            initialiseSuiteJoueur();
+        }
+
+        private void L1_MouseUp(object sender, MouseEventArgs e)
+        {   
+          
+
+
+        }
+        //===============================  GESTION DU SURVOL DES LETTRES ==============================
+        private void L1_MouseHover(object sender, EventArgs e)
+        {           
+            if (L1.ForeColor == CouleurDeSelection)
+            { L1.ForeColor = CouleurDefaut; }
+            else { L1.ForeColor = CouleurDeSelection; actualiseSuiteLabelJoueur("L1"); }         
+        }
+
+        private void L2_MouseHover(object sender, EventArgs e)
+        {
+            if (L2.ForeColor == CouleurDeSelection)
+            { L2.ForeColor = CouleurDefaut; }
+            else { L2.ForeColor = CouleurDeSelection; actualiseSuiteLabelJoueur("L2"); }
+        }
+
+        private void L3_MouseHover(object sender, EventArgs e)
+        {
+            if (L3.ForeColor == CouleurDeSelection)
+            { L3.ForeColor = CouleurDefaut; }
+            else { L3.ForeColor = CouleurDeSelection; }
+        }
+        //================================================================================================
+        private void initialiseSuiteJoueur()
+        {
+            for (int i=0; i<suiteLabelJoueur.Length-1;i++)
+            {
+                suiteLabelJoueur[i] = "";
+            }
+        }
+        private void actualiseSuiteLabelJoueur(string lab)
+        {
+            int Max = 0;         
+          for (int cpt=0; cpt<suiteLabelJoueur.Length;cpt++)
+            {
+                if (suiteLabelJoueur[cpt]=="")
+                {
+                    Max = cpt;
+                    break;
+                }
+            }
+            suiteLabelJoueur[Max] = lab; // ajoute la case cochée dans les tableau de suivi
+            // Ici on doit vérifier 
+            // 1- si la case a déja été utilisée
+            // 2- si elle est voisine
+            // 3 - Si c'est la précédente on ne doit pas compter la derniere lettre (décrémentation
         }
     }
        

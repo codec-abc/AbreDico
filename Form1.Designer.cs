@@ -146,6 +146,7 @@ namespace AbreDico
             // 
             // timer1
             // 
+            this.timer1.Interval = 10;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // button1
@@ -314,6 +315,7 @@ namespace AbreDico
             this.L3.TabIndex = 6;
             this.L3.Text = "A";
             this.L3.Click += new System.EventHandler(this.L1_Click);
+            this.L3.MouseHover += new System.EventHandler(this.L3_MouseHover);
             // 
             // L15
             // 
@@ -340,6 +342,7 @@ namespace AbreDico
             this.L2.TabIndex = 5;
             this.L2.Text = "A";
             this.L2.Click += new System.EventHandler(this.L1_Click);
+            this.L2.MouseHover += new System.EventHandler(this.L2_MouseHover);
             // 
             // L16
             // 
@@ -366,6 +369,8 @@ namespace AbreDico
             this.L1.TabIndex = 4;
             this.L1.Text = "A";
             this.L1.Click += new System.EventHandler(this.L1_Click);
+            this.L1.MouseHover += new System.EventHandler(this.L1_MouseHover);
+            this.L1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.L1_MouseUp);
             // 
             // Form1
             // 
