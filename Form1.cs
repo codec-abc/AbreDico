@@ -34,6 +34,7 @@ namespace AbreDico
         char[] consonnesChiantes = { 'W', 'X', 'J', 'Q', 'V', 'K', 'Y' };
         string motJoueur="";
         string[] suiteLabelJoueur = new string[16];
+        char[,] tableauDeLettres = new char[4, 4];
         //=================================================================
 
         public class Noeud
@@ -70,7 +71,7 @@ namespace AbreDico
             }
             return retour;
         }
-        bool estConsoleChiante(char lettre)
+        bool estConsonneChiante(char lettre)
         {
             bool retour = false;
             for (int i = 0; i < consonnesChiantes.Length; i++)
@@ -128,7 +129,7 @@ namespace AbreDico
                 int compteur = 0;
                 for (int i = 0; i< matrice.Length - 1;i++)
                 {
-                   if (estConsoleChiante( matrice[i]) && compteur<cptCchiante-1)
+                   if (estConsonneChiante( matrice[i]) && compteur<cptCchiante-1)
                     { // remplace la consonne chiante par une voyelle
                         int b = rand.Next(0, voyellesCourantes.Length - 1);
                         matrice[i] = voyellesCourantes[b];
@@ -141,6 +142,8 @@ namespace AbreDico
         public void dessineMatrice()
         {
             int j = 0;
+            int li= 0;
+            int co = 0;
             foreach (Control c in this.Controls)
             {
                 if (c.GetType() == typeof(Label))
@@ -148,6 +151,11 @@ namespace AbreDico
                     c.ForeColor = CouleurDefaut;
                     c.Text = matrice[j].ToString();
                     c.Width = 40;
+                    tableauDeLettres[li, co] = matrice[j];
+                    MessageBox.Show("LI=" + li.ToString() + " co=" + co.ToString() + " Lettre=" + matrice[j].ToString());
+                    li++;
+                    if (li>3) { li = 0; co++; }
+                  
                     j++;                 
                 }
             }
