@@ -49,13 +49,14 @@ namespace AbreDico
             this.L12 = new System.Windows.Forms.Label();
             this.L5 = new System.Windows.Forms.Label();
             this.L13 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.L4 = new System.Windows.Forms.Label();
             this.L14 = new System.Windows.Forms.Label();
             this.L3 = new System.Windows.Forms.Label();
             this.L15 = new System.Windows.Forms.Label();
             this.L2 = new System.Windows.Forms.Label();
             this.L16 = new System.Windows.Forms.Label();
             this.L1 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.panelMIAP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ImageGai)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImageTriste)).BeginInit();
@@ -154,9 +155,9 @@ namespace AbreDico
             this.button1.Location = new System.Drawing.Point(708, 272);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(94, 29);
+            this.button1.Size = new System.Drawing.Size(170, 29);
             this.button1.TabIndex = 3;
-            this.button1.Text = "button1";
+            this.button1.Text = "nouvelle donne";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -165,156 +166,144 @@ namespace AbreDico
             this.L9.AutoSize = true;
             this.L9.BackColor = System.Drawing.SystemColors.Control;
             this.L9.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.L9.ForeColor = System.Drawing.Color.DarkMagenta;
+            this.L9.ForeColor = System.Drawing.Color.Navy;
             this.L9.Location = new System.Drawing.Point(63, 133);
             this.L9.Name = "L9";
             this.L9.Size = new System.Drawing.Size(40, 39);
             this.L9.TabIndex = 12;
             this.L9.Text = "A";
-            this.L9.Click += new System.EventHandler(this.L1_Click);
             // 
             // L8
             // 
             this.L8.AutoSize = true;
             this.L8.BackColor = System.Drawing.SystemColors.Control;
             this.L8.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.L8.ForeColor = System.Drawing.Color.DarkMagenta;
+            this.L8.ForeColor = System.Drawing.Color.Navy;
             this.L8.Location = new System.Drawing.Point(209, 83);
             this.L8.Name = "L8";
             this.L8.Size = new System.Drawing.Size(40, 39);
             this.L8.TabIndex = 11;
             this.L8.Text = "A";
-            this.L8.Click += new System.EventHandler(this.L1_Click);
             // 
             // L10
             // 
             this.L10.AutoSize = true;
             this.L10.BackColor = System.Drawing.SystemColors.Control;
             this.L10.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.L10.ForeColor = System.Drawing.Color.DarkMagenta;
+            this.L10.ForeColor = System.Drawing.Color.Navy;
             this.L10.Location = new System.Drawing.Point(113, 133);
             this.L10.Name = "L10";
             this.L10.Size = new System.Drawing.Size(40, 39);
             this.L10.TabIndex = 13;
             this.L10.Text = "A";
-            this.L10.Click += new System.EventHandler(this.L1_Click);
             // 
             // L7
             // 
             this.L7.AutoSize = true;
             this.L7.BackColor = System.Drawing.SystemColors.Control;
             this.L7.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.L7.ForeColor = System.Drawing.Color.DarkMagenta;
+            this.L7.ForeColor = System.Drawing.Color.Navy;
             this.L7.Location = new System.Drawing.Point(163, 83);
             this.L7.Name = "L7";
             this.L7.Size = new System.Drawing.Size(40, 39);
             this.L7.TabIndex = 10;
             this.L7.Text = "A";
-            this.L7.Click += new System.EventHandler(this.L1_Click);
             // 
             // L11
             // 
             this.L11.AutoSize = true;
             this.L11.BackColor = System.Drawing.SystemColors.Control;
             this.L11.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.L11.ForeColor = System.Drawing.Color.DarkMagenta;
+            this.L11.ForeColor = System.Drawing.Color.Navy;
             this.L11.Location = new System.Drawing.Point(163, 133);
             this.L11.Name = "L11";
             this.L11.Size = new System.Drawing.Size(40, 39);
             this.L11.TabIndex = 14;
             this.L11.Text = "A";
-            this.L11.Click += new System.EventHandler(this.L1_Click);
             // 
             // L6
             // 
             this.L6.AutoSize = true;
             this.L6.BackColor = System.Drawing.SystemColors.Control;
             this.L6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.L6.ForeColor = System.Drawing.Color.DarkMagenta;
+            this.L6.ForeColor = System.Drawing.Color.Navy;
             this.L6.Location = new System.Drawing.Point(113, 83);
             this.L6.Name = "L6";
             this.L6.Size = new System.Drawing.Size(40, 39);
             this.L6.TabIndex = 9;
             this.L6.Text = "A";
-            this.L6.Click += new System.EventHandler(this.L1_Click);
             // 
             // L12
             // 
             this.L12.AutoSize = true;
             this.L12.BackColor = System.Drawing.SystemColors.Control;
             this.L12.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.L12.ForeColor = System.Drawing.Color.DarkMagenta;
+            this.L12.ForeColor = System.Drawing.Color.Navy;
             this.L12.Location = new System.Drawing.Point(213, 133);
             this.L12.Name = "L12";
             this.L12.Size = new System.Drawing.Size(40, 39);
             this.L12.TabIndex = 15;
             this.L12.Text = "A";
-            this.L12.Click += new System.EventHandler(this.L1_Click);
             // 
             // L5
             // 
             this.L5.AutoSize = true;
             this.L5.BackColor = System.Drawing.SystemColors.Control;
             this.L5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.L5.ForeColor = System.Drawing.Color.DarkMagenta;
+            this.L5.ForeColor = System.Drawing.Color.Navy;
             this.L5.Location = new System.Drawing.Point(63, 83);
             this.L5.Name = "L5";
             this.L5.Size = new System.Drawing.Size(40, 39);
             this.L5.TabIndex = 8;
             this.L5.Text = "A";
-            this.L5.Click += new System.EventHandler(this.L1_Click);
             // 
             // L13
             // 
             this.L13.AutoSize = true;
             this.L13.BackColor = System.Drawing.SystemColors.Control;
             this.L13.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.L13.ForeColor = System.Drawing.Color.DarkMagenta;
+            this.L13.ForeColor = System.Drawing.Color.Navy;
             this.L13.Location = new System.Drawing.Point(63, 184);
             this.L13.Name = "L13";
             this.L13.Size = new System.Drawing.Size(40, 39);
             this.L13.TabIndex = 16;
             this.L13.Text = "A";
-            this.L13.Click += new System.EventHandler(this.L1_Click);
             // 
-            // label1
+            // L4
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.SystemColors.Control;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.DarkMagenta;
-            this.label1.Location = new System.Drawing.Point(209, 32);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(40, 39);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "A";
-            this.label1.Click += new System.EventHandler(this.L1_Click);
+            this.L4.AutoSize = true;
+            this.L4.BackColor = System.Drawing.SystemColors.Control;
+            this.L4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.L4.ForeColor = System.Drawing.Color.Navy;
+            this.L4.Location = new System.Drawing.Point(209, 32);
+            this.L4.Name = "L4";
+            this.L4.Size = new System.Drawing.Size(40, 39);
+            this.L4.TabIndex = 7;
+            this.L4.Text = "A";
             // 
             // L14
             // 
             this.L14.AutoSize = true;
             this.L14.BackColor = System.Drawing.SystemColors.Control;
             this.L14.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.L14.ForeColor = System.Drawing.Color.DarkMagenta;
+            this.L14.ForeColor = System.Drawing.Color.Navy;
             this.L14.Location = new System.Drawing.Point(113, 184);
             this.L14.Name = "L14";
             this.L14.Size = new System.Drawing.Size(40, 39);
             this.L14.TabIndex = 17;
             this.L14.Text = "A";
-            this.L14.Click += new System.EventHandler(this.L1_Click);
             // 
             // L3
             // 
             this.L3.AutoSize = true;
             this.L3.BackColor = System.Drawing.SystemColors.Control;
             this.L3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.L3.ForeColor = System.Drawing.Color.DarkMagenta;
+            this.L3.ForeColor = System.Drawing.Color.Navy;
             this.L3.Location = new System.Drawing.Point(159, 32);
             this.L3.Name = "L3";
             this.L3.Size = new System.Drawing.Size(40, 39);
             this.L3.TabIndex = 6;
             this.L3.Text = "A";
-            this.L3.Click += new System.EventHandler(this.L1_Click);
             this.L3.MouseHover += new System.EventHandler(this.L3_MouseHover);
             // 
             // L15
@@ -322,26 +311,24 @@ namespace AbreDico
             this.L15.AutoSize = true;
             this.L15.BackColor = System.Drawing.SystemColors.Control;
             this.L15.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.L15.ForeColor = System.Drawing.Color.DarkMagenta;
+            this.L15.ForeColor = System.Drawing.Color.Navy;
             this.L15.Location = new System.Drawing.Point(163, 184);
             this.L15.Name = "L15";
             this.L15.Size = new System.Drawing.Size(40, 39);
             this.L15.TabIndex = 18;
             this.L15.Text = "A";
-            this.L15.Click += new System.EventHandler(this.L1_Click);
             // 
             // L2
             // 
             this.L2.AutoSize = true;
             this.L2.BackColor = System.Drawing.SystemColors.Control;
             this.L2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.L2.ForeColor = System.Drawing.Color.DarkMagenta;
+            this.L2.ForeColor = System.Drawing.Color.Navy;
             this.L2.Location = new System.Drawing.Point(109, 32);
             this.L2.Name = "L2";
             this.L2.Size = new System.Drawing.Size(40, 39);
             this.L2.TabIndex = 5;
             this.L2.Text = "A";
-            this.L2.Click += new System.EventHandler(this.L1_Click);
             this.L2.MouseHover += new System.EventHandler(this.L2_MouseHover);
             // 
             // L16
@@ -349,34 +336,43 @@ namespace AbreDico
             this.L16.AutoSize = true;
             this.L16.BackColor = System.Drawing.SystemColors.Control;
             this.L16.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.L16.ForeColor = System.Drawing.Color.DarkMagenta;
+            this.L16.ForeColor = System.Drawing.Color.Navy;
             this.L16.Location = new System.Drawing.Point(213, 184);
             this.L16.Name = "L16";
             this.L16.Size = new System.Drawing.Size(40, 39);
             this.L16.TabIndex = 19;
             this.L16.Text = "A";
-            this.L16.Click += new System.EventHandler(this.L1_Click);
             // 
             // L1
             // 
             this.L1.AutoSize = true;
             this.L1.BackColor = System.Drawing.SystemColors.Control;
             this.L1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.L1.ForeColor = System.Drawing.Color.DarkMagenta;
+            this.L1.ForeColor = System.Drawing.Color.Navy;
             this.L1.Location = new System.Drawing.Point(59, 32);
             this.L1.Name = "L1";
             this.L1.Size = new System.Drawing.Size(40, 39);
             this.L1.TabIndex = 4;
             this.L1.Text = "A";
-            this.L1.Click += new System.EventHandler(this.L1_Click);
             this.L1.MouseHover += new System.EventHandler(this.L1_MouseHover);
             this.L1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.L1_MouseUp);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.Location = new System.Drawing.Point(293, -2);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox2.Size = new System.Drawing.Size(392, 552);
+            this.textBox2.TabIndex = 20;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1249, 562);
+            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.L1);
             this.Controls.Add(this.L16);
             this.Controls.Add(this.button1);
@@ -388,7 +384,7 @@ namespace AbreDico
             this.Controls.Add(this.L7);
             this.Controls.Add(this.L14);
             this.Controls.Add(this.L9);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.L4);
             this.Controls.Add(this.L8);
             this.Controls.Add(this.L13);
             this.Controls.Add(this.L10);
@@ -433,13 +429,14 @@ namespace AbreDico
         private System.Windows.Forms.Label L12;
         private System.Windows.Forms.Label L5;
         private System.Windows.Forms.Label L13;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label L4;
         private System.Windows.Forms.Label L14;
         private System.Windows.Forms.Label L3;
         private System.Windows.Forms.Label L15;
         private System.Windows.Forms.Label L2;
         private System.Windows.Forms.Label L16;
         private System.Windows.Forms.Label L1;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }
 
