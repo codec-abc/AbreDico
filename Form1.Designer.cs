@@ -57,10 +57,13 @@ namespace AbreDico
             this.L16 = new System.Windows.Forms.Label();
             this.L1 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.labNotification = new System.Windows.Forms.Label();
             this.panelMIAP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ImageGai)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImageTriste)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelMIAP
@@ -304,7 +307,7 @@ namespace AbreDico
             this.L3.Size = new System.Drawing.Size(40, 39);
             this.L3.TabIndex = 6;
             this.L3.Text = "A";
-            this.L3.MouseHover += new System.EventHandler(this.L3_MouseHover);
+            this.L3.Click += new System.EventHandler(this.L3_Click);
             // 
             // L15
             // 
@@ -329,7 +332,7 @@ namespace AbreDico
             this.L2.Size = new System.Drawing.Size(40, 39);
             this.L2.TabIndex = 5;
             this.L2.Text = "A";
-            this.L2.MouseHover += new System.EventHandler(this.L2_MouseHover);
+            this.L2.Click += new System.EventHandler(this.L2_Click);
             // 
             // L16
             // 
@@ -354,8 +357,7 @@ namespace AbreDico
             this.L1.Size = new System.Drawing.Size(40, 39);
             this.L1.TabIndex = 4;
             this.L1.Text = "A";
-            this.L1.MouseHover += new System.EventHandler(this.L1_MouseHover);
-            this.L1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.L1_MouseUp);
+            this.L1.Click += new System.EventHandler(this.L1_Click);
             // 
             // textBox2
             // 
@@ -367,11 +369,29 @@ namespace AbreDico
             this.textBox2.Size = new System.Drawing.Size(392, 552);
             this.textBox2.TabIndex = 20;
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.labNotification);
+            this.panel1.Location = new System.Drawing.Point(14, 356);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(270, 108);
+            this.panel1.TabIndex = 21;
+            // 
+            // labNotification
+            // 
+            this.labNotification.AutoSize = true;
+            this.labNotification.Location = new System.Drawing.Point(15, 20);
+            this.labNotification.Name = "labNotification";
+            this.labNotification.Size = new System.Drawing.Size(90, 20);
+            this.labNotification.TabIndex = 0;
+            this.labNotification.Text = "notification";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1249, 562);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.L1);
             this.Controls.Add(this.L16);
@@ -405,6 +425,8 @@ namespace AbreDico
             ((System.ComponentModel.ISupportInitialize)(this.ImageGai)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImageTriste)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -437,6 +459,8 @@ namespace AbreDico
         private System.Windows.Forms.Label L16;
         private System.Windows.Forms.Label L1;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label labNotification;
     }
 }
 

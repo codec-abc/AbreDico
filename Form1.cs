@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace AbreDico
 {
     /* Choix : l'abre est représenté par une liste de noeuds
@@ -42,6 +43,9 @@ namespace AbreDico
         string motJoueur = "";
         string[] suiteLabelJoueur = new string[16];
         char[,] tableauDeLettres = new char[4, 4];
+        couple caseChoisie = new couple();
+        couple casePrecedente = new couple();
+        bool[,] TabloCochage = new bool[4, 4];
         //=================================================================
         void genereAlphabet()
         {
@@ -160,13 +164,13 @@ namespace AbreDico
             {
                 int a = rand.Next(0, 25);
                 lettre = alphabet[a];
-                if (i>0)
+                if (i > 0)
                 {
-                    if (lettre!=matrice[i-1])
+                    if (lettre != matrice[i - 1])
                     { accord = true; }
                     else { accord = false; }
                 }
-                if ( accord)
+                if (accord)
                 {
                     this.textBox2.Text = this.textBox2.Text + lettre.ToString() + " TIRE = " + nbDeLaLettre(lettre).ToString() + " fois \r\n";
                     difficulteLettre = TabloDifficulte[a];
@@ -219,7 +223,7 @@ namespace AbreDico
                                     voyelleDeSuite = 0;
                                     i++;
                                     this.textBox2.Text =
-                                    this.textBox2.Text = "  " + this.textBox2.Text + "consonne facile Ajoutée = " + lettre.ToString()+" exemplaire n° "+nbDeLaLettre(lettre).ToString()  + "\r\n";
+                                    this.textBox2.Text = "  " + this.textBox2.Text + "consonne facile Ajoutée = " + lettre.ToString() + " exemplaire n° " + nbDeLaLettre(lettre).ToString() + "\r\n";
                                 }
                                 else
                                 {
@@ -251,8 +255,8 @@ namespace AbreDico
                     }
                     lettrePrecedente = lettre;
                 } // fin du if = lettre precedente et conssonne et voyelles à suivre trop nombreuses
-              
-            
+
+
             }  // fin du while remmplissage matrice                    
 
             // modifications pour rendre plus jouable
@@ -379,7 +383,7 @@ namespace AbreDico
             }
             return cpt;
         }
-        public void dessineMatrice()
+        public void dessineMatrice2()
         {
             tableauDeLettres[0, 0] = matrice[0];
             L1.Text = tableauDeLettres[0, 0].ToString();
@@ -518,9 +522,11 @@ namespace AbreDico
             if (motexiste(this.textBox1.Text.ToUpper()))
             {
                 this.ImageGai.Visible = true;
+                this.ImageTriste.Visible = false;
             }
             else
             {
+                this.ImageGai.Visible = false;
                 this.ImageTriste.Visible = true;
             }
         }
@@ -582,7 +588,8 @@ namespace AbreDico
             //   MessageBox.Show("ouf");
             nouvelleDonne();
             couple c1 = new couple(); // ces 2 lignes sont pour tester
-            c1.x = 2; c1.y = 4;
+            c1.x = -1; c1.y = -1;
+            dessineMatrice();
         }
 
         private void nouvelleDonne()
@@ -600,49 +607,15 @@ namespace AbreDico
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-
             Init(); // Pour la contructiiion d'un arbre des lettres à partir de la liste demot français
             initDataPourGrille();
             nouvelleDonne();
-
         }
 
         private void L1_MouseUp(object sender, MouseEventArgs e)
         {
         }
         //===============================  GESTION DU SURVOL DES LETTRES ==============================
-        private void L1_MouseHover(object sender, EventArgs e)
-        {
-            if (L1.ForeColor == CouleurDeSelection) // déja utilisé
-            { L1.ForeColor = CouleurDefaut; }
-            else
-            {
-                L1.ForeColor = CouleurDeSelection;
-                actualiseSuiteLabelJoueur("L1");
-            }
-        }
-
-        private void L2_MouseHover(object sender, EventArgs e)
-        {
-            if (L2.ForeColor == CouleurDeSelection) // déja utilisé
-            { L2.ForeColor = CouleurDefaut; }
-            else
-            {
-                L2.ForeColor = CouleurDeSelection;
-                actualiseSuiteLabelJoueur("L2");
-            }
-        }
-
-        private void L3_MouseHover(object sender, EventArgs e)
-        {
-            if (L3.ForeColor == CouleurDeSelection) // déja utilisé
-            { L3.ForeColor = CouleurDefaut; }
-            else
-            {
-                L3.ForeColor = CouleurDeSelection;
-                actualiseSuiteLabelJoueur("L3");
-            }
-        }
         //================================================================================================
         private void initialiseSuiteJoueur()
         {
@@ -688,6 +661,120 @@ namespace AbreDico
             // 3 - Si c'est la précédente on ne doit pas compter la derniere lettre (décrémentation) et remettre la couleur par defaut sur la lettre precedente
         }
 
+        private void definitCoupleCaseCochee(int X, int Y)
+        {
+            caseChoisie.x = X;
+            caseChoisie.y = Y;
+        }
+        private void stockeCaseChoisie()
+        {
+            casePrecedente.x = caseChoisie.x;
+            casePrecedente.y = caseChoisie.y;
+        }
+
+     private void dessineMatrice()
+        {
+            int cpt = 0, li=0, co=0;
+            string nomDuLabel;
+            try
+            {
+                foreach (Label a in Controls.OfType<Label>())
+                {
+                  //  MessageBox.Show(matrice[cpt].ToString()+" co="+co.ToString()+" li ="+li.ToString());
+                    nomDuLabel = matrice[cpt].ToString();
+                    a.Text = nomDuLabel;                   
+                    tableauDeLettres[li,co]= matrice[cpt];
+                    co++;
+                    if (co==4)
+                    {
+                        co = 0;                        
+                        li++;    
+                    }
+                    cpt++;
+                }
+            }
+
+            catch { MessageBox.Show("Erreur dans la boucle foreach de dessinneMatrice"); 
+            }
+            casePrecedente.x = -1; //initialise case précédente
+            casePrecedente.y = -1;
+        }
+
+        bool estVoisine ()
+        {   
+            int rx, ry;
+            labNotification.Text = "";
+            if ((caseChoisie.x==casePrecedente.x)&&(caseChoisie.y==casePrecedente.y))
+            {
+                // case cochée précédemment recochée
+                labNotification.Text = "Choix innacceptable case recochée";
+                return false;
+            }            
+            if (casePrecedente.x != -1) // pas la première case
+            {// traitement
+                rx = Math.Abs( caseChoisie.x-casePrecedente.x);
+                ry = Math.Abs(caseChoisie.y - casePrecedente.y);
+                if((rx>=-1 && rx<=1)&& (ry >= -1 && ry <= 1))
+                    {
+                    stockeCaseChoisie();
+                    labNotification.Text = "Choix OK";
+                    return true;                    
+                    }
+                else 
+                {
+                    labNotification.Text = "Choix innacceptable : pas voisine";
+                    return false;
+                }
+            }
+            else
+            {
+                stockeCaseChoisie();
+                labNotification.Text = "Choix OK";
+                return true;
+            }
+        }
+
+        private void GereClicSurLettre(string nomDuLabel,int LI, int CO)
+        {
+            caseChoisie.x = CO;
+            caseChoisie.y = LI;
+            if (estVoisine())
+            {
+
+                foreach (Label a in Controls.OfType<Label>())
+                {
+                    if (a.Name == nomDuLabel) // si le label est celui cliqué
+                    {
+                        if (a.ForeColor == CouleurDefaut) // colorie en fonction de l'état antérieur
+                        {
+                            a.ForeColor = CouleurDeSelection;
+                            this.textBox1.Text = this.textBox1.Text + a.Text;
+                        }
+                        else
+                        { a.ForeColor = CouleurDefaut; } // pointe sur deja sélectionné
+                    }
+                }
+
+                definitCoupleCaseCochee(LI, CO);
+            }
+        }
+            private void L1_Click(object sender, EventArgs e)
+        {
+            Label a =( Label)sender; // récupère le nom du label           
+            GereClicSurLettre(a.Name.ToString(),0,0);                            
+        }
+
+        private void L2_Click(object sender, EventArgs e)
+        {
+            Label a = (Label)sender; // récupère le nom du label           
+            GereClicSurLettre(a.Name.ToString(), 0, 1);
+        }
+
+        private void L3_Click(object sender, EventArgs e)
+        {
+            Label a = (Label)sender; // récupère le nom du label           
+            GereClicSurLettre(a.Name.ToString(), 0, 3);
+        }
     }
 
 
