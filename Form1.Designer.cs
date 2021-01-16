@@ -59,11 +59,15 @@ namespace AbreDico
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labNotification = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.labScoreMotJoueur = new System.Windows.Forms.Label();
+            this.labScoreTotal = new System.Windows.Forms.Label();
             this.panelMIAP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ImageGai)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImageTriste)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelMIAP
@@ -372,9 +376,9 @@ namespace AbreDico
             // panel1
             // 
             this.panel1.Controls.Add(this.labNotification);
-            this.panel1.Location = new System.Drawing.Point(14, 356);
+            this.panel1.Location = new System.Drawing.Point(14, 272);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(270, 108);
+            this.panel1.Size = new System.Drawing.Size(270, 57);
             this.panel1.TabIndex = 21;
             // 
             // labNotification
@@ -386,11 +390,44 @@ namespace AbreDico
             this.labNotification.TabIndex = 0;
             this.labNotification.Text = "notification";
             // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.panel2.Controls.Add(this.labScoreTotal);
+            this.panel2.Controls.Add(this.labScoreMotJoueur);
+            this.panel2.Location = new System.Drawing.Point(13, 348);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(271, 144);
+            this.panel2.TabIndex = 22;
+            // 
+            // labScoreMotJoueur
+            // 
+            this.labScoreMotJoueur.AutoSize = true;
+            this.labScoreMotJoueur.Font = new System.Drawing.Font("Wide Latin", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labScoreMotJoueur.ForeColor = System.Drawing.Color.Yellow;
+            this.labScoreMotJoueur.Location = new System.Drawing.Point(29, 22);
+            this.labScoreMotJoueur.Name = "labScoreMotJoueur";
+            this.labScoreMotJoueur.Size = new System.Drawing.Size(51, 34);
+            this.labScoreMotJoueur.TabIndex = 0;
+            this.labScoreMotJoueur.Text = "0";
+            // 
+            // labScoreTotal
+            // 
+            this.labScoreTotal.AutoSize = true;
+            this.labScoreTotal.Font = new System.Drawing.Font("Wide Latin", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labScoreTotal.ForeColor = System.Drawing.Color.Lime;
+            this.labScoreTotal.Location = new System.Drawing.Point(35, 79);
+            this.labScoreTotal.Name = "labScoreTotal";
+            this.labScoreTotal.Size = new System.Drawing.Size(51, 34);
+            this.labScoreTotal.TabIndex = 1;
+            this.labScoreTotal.Text = "0";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1249, 562);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.L1);
@@ -427,6 +464,8 @@ namespace AbreDico
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -461,6 +500,9 @@ namespace AbreDico
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label labNotification;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label labScoreMotJoueur;
+        private System.Windows.Forms.Label labScoreTotal;
     }
 }
 
