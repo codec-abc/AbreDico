@@ -144,10 +144,10 @@ namespace AbreDico
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(33, 249);
+            this.button1.Location = new System.Drawing.Point(13, 282);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(170, 29);
+            this.button1.Size = new System.Drawing.Size(270, 29);
             this.button1.TabIndex = 3;
             this.button1.Text = "nouvelle donne";
             this.button1.UseVisualStyleBackColor = true;
@@ -164,32 +164,29 @@ namespace AbreDico
             this.textBox2.Size = new System.Drawing.Size(55, 155);
             this.textBox2.TabIndex = 20;
             this.textBox2.Visible = false;
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.labNotification);
-            this.panel1.Location = new System.Drawing.Point(14, 179);
+            this.panel1.Location = new System.Drawing.Point(14, 218);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(270, 57);
             this.panel1.TabIndex = 21;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // labNotification
             // 
             this.labNotification.AutoSize = true;
             this.labNotification.Location = new System.Drawing.Point(15, 20);
             this.labNotification.Name = "labNotification";
-            this.labNotification.Size = new System.Drawing.Size(90, 20);
+            this.labNotification.Size = new System.Drawing.Size(0, 20);
             this.labNotification.TabIndex = 0;
-            this.labNotification.Text = "notification";
             // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.panel2.Controls.Add(this.labScoreTotal);
             this.panel2.Controls.Add(this.labScoreMotJoueur);
-            this.panel2.Location = new System.Drawing.Point(12, 285);
+            this.panel2.Location = new System.Drawing.Point(13, 318);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(271, 144);
             this.panel2.TabIndex = 22;
@@ -245,7 +242,6 @@ namespace AbreDico
             this.Name = "Form1";
             this.Text = "Wordament by G Viot";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.Shown += new System.EventHandler(this.Form1_Shown);
             this.panelMIAP.ResumeLayout(false);
             this.panelMIAP.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ImageGai)).EndInit();

@@ -500,6 +500,7 @@ namespace AbreDico
                     {
                         dejaUtilise = true;
                         labNotification.Text = "Mot déja choisi";
+                        dessineMatrice();
                     }
                 }
 
@@ -559,9 +560,7 @@ namespace AbreDico
             else
             { return false; }
         }
-
-        private void Form1_Shown(object sender, EventArgs e)
-        { }
+     
 
         private void textBox1_Enter(object sender, EventArgs e)
         {
@@ -596,6 +595,7 @@ namespace AbreDico
             affectePoidsDesLettres();
             affecteDidifficulteUtilisationLettre();
         }
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~é
         private void Form1_Load(object sender, EventArgs e)
         {
             string T;
@@ -606,16 +606,18 @@ namespace AbreDico
                 for (int i = 0; i < 4; i++)
                 {
                     cpt++;
+                    int pas = 60;
                     Label L = new System.Windows.Forms.Label();
+                    L.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                     L.Parent = this;
                     L.Click += new EventHandler(LableEstChoisi);
                     T = cpt.ToString();
                     L.Text = T;
                     L.Name = T;
-                    L.Width = 30;
-                    L.Height = 20;
-                    L.Top = 20 + j * 40;
-                    L.Left = 20 + i * 40;
+                    L.Width = pas-20;
+                    L.Height = pas -20;
+                    L.Top = 20 + j * pas;
+                    L.Left = 20 + i * pas;
                     L.ForeColor = CouleurDefaut;
                     L.Show();
                 }
@@ -624,16 +626,11 @@ namespace AbreDico
             initDataPourGrille();
             nouvelleDonne();            
         }
-
-        private void LableEstChoisi(object sender, EventArgs e)
+        int retourneColonne(string V)  
+            // rencoie le n° de colonne en fonction de la chaine porant le nom du label
         {
-            int li = 0;
-            int co = -4;
-            Label choisi = (Label)sender;
-            choisi.ForeColor = CouleurDeSelection;            
-            int a = Convert.ToInt32(choisi.Name);
-            li = Convert.ToInt32(Math.Truncate(a / 4.1));
-            //   co = a - (li*4)-1;
+            int co = 0;
+            int a = Convert.ToInt32(V);
             float q = (a % 4);
             if (q == 0)
             {
@@ -646,7 +643,23 @@ namespace AbreDico
 
                 co = Convert.ToInt32(q);
             }
-            
+            return co;
+        }
+        int retourneLigne(string V)
+        // rencoie le n° de ligne en fonction de la chaine porant le nom du label
+        {
+            int a = Convert.ToInt32(V);
+            int  li = Convert.ToInt32(Math.Truncate(a / 4.1));
+            return li;
+        }
+        private void LableEstChoisi(object sender, EventArgs e)
+        {
+            int li = 0;
+            int co = -4;
+            Label choisi = (Label)sender;
+            string n = choisi.Name;           
+            li = retourneLigne(n);
+            co = retourneColonne(n);
             choisi.Visible = false;
             GereClicSurLettre(choisi.Name.ToString(), li, co);
         }
@@ -672,7 +685,7 @@ namespace AbreDico
                 foreach (Label a in Controls.OfType<Label>())
                 {
                     //  MessageBox.Show(matrice[cpt].ToString()+" co="+co.ToString()+" li ="+li.ToString());
-                    a.ForeColor = CouleurDefaut;
+                    a.ForeColor = CouleurDefaut;                   
                     nomDuLabel = matrice[cpt].ToString();
                     a.Text = nomDuLabel;
                     a.Visible = true;
@@ -696,7 +709,7 @@ namespace AbreDico
         }
 
         bool estVoisine()
-        {
+        {    // retourn vrai si la case est une case voisine 
             int rx, ry;
             labNotification.Text = "";            
             if (casePrecedente.x != -1) // pas la première case
@@ -756,15 +769,7 @@ namespace AbreDico
             }
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+     
     }
 }
 
