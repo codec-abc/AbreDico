@@ -6,9 +6,16 @@ using System.Threading.Tasks;
 
 namespace AbreDico
 {
-    class couple
-    {       
-            public int x { get; set; }
-            public int y { get; set; }        
+    public class Case
+    {
+        public int x { get; set; }
+        public int y { get; set; }
+        public Dictionary<char, Case> DictionnaireDesSousCases;
     }
+    public class couple
+    {
+        public int x { get; set; }
+        public int y { get; set; }
+    }
+    
 }

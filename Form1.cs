@@ -28,21 +28,19 @@ namespace AbreDico
 
         //  private static readonly string MotResultatNom = "MOTSRESULTAT.txt";
         // **** Couleurs de l'environnement
-        Color CouleurDefaut = Color.FromName("Navy");
-        Color CouleurDeSelection = Color.FromName("Red");
-        Color CouleurAvertissement = Color.FromName("Yellow");
+        Color CouleurDefaut = Color.FromName("Navy");     
         // Variables de classe
         int scoreMotJoueur = 0;
         int scoreTotal = 0;
         // Tableaux de la classe
         char[] matrice = new char[16];
-        char[] voyellesCourantes = { 'A', 'E', 'I', 'O', 'U' };
+       
         char[] consonnesChiantes = { 'W', 'X', 'J', 'Q', 'V', 'K', 'Y', 'H' };
         char[] alphabet = new char[26];
         int[] TabloConsonneOuVoyelle = new int[26]; //consonne (0) ou Voyelle (1)
         int[] TabloPointsParLettre = new int[26];
         int[] TabloDifficulte = new int[26];
-        string[] suiteLabelJoueur = new string[16];
+       // string[] suiteLabelJoueur = new string[16];
         char[,] tableauDeLettres = new char[4, 4];
         bool[,] TabloCochage = new bool[4, 4];
         // [Nonbre de points associés, consonne (0) ou Voyelle (1),Type de la lettre]
@@ -149,8 +147,7 @@ namespace AbreDico
                     i = -1;
                     break;
                 }
-            }
-            //   MessageBox.Show("place de " + C + " dans la matrice : " + i);
+            }           
             return i;
         }
         public void creerMatrice() // Génère aléatoirement des lettres qui sont mises dans le tableau"matrice"
@@ -180,7 +177,7 @@ namespace AbreDico
                 }
                 if (accord)
                 {
-                  //  this.textBox2.Text = this.textBox2.Text + lettre.ToString() + " TIRE = " + nbDeLaLettre(lettre).ToString() + " fois \r\n";
+                    //  this.textBox2.Text = this.textBox2.Text + lettre.ToString() + " TIRE = " + nbDeLaLettre(lettre).ToString() + " fois \r\n";
                     difficulteLettre = TabloDifficulte[a];
                     if (TabloConsonneOuVoyelle[a] == 1) // détermine si le caractère est ou non une voyelle
                     {
@@ -304,11 +301,11 @@ namespace AbreDico
                 { // substitution de consonnes par des voyelles
                     b = rand.Next(0, 15);
                     car = (matrice[b]);
-                    if (!estVoyelle(car))
+                    if (!DonneesLettres.estVoyelle(car))
                     {
                         int c = rand.Next(0, 2);
                         //   this.textBox2.Text = this.textBox2.Text + matrice[b].ToString() + " remplacée par = " + voyellesCourantes[c] + " \r\n";
-                        matrice[b] = voyellesCourantes[c];
+                        matrice[b] = DonneesLettres.voyellesCourantes[c];
                         tour++;
                     }
 
@@ -319,15 +316,7 @@ namespace AbreDico
         }
         int nbVoyelles()
         {
-            int cptV = 0;
-            for (int j = 0; j < 16; j++)
-            {
-                for (int k = 0; k < voyellesCourantes.Length; k++)
-                {
-                    if (matrice[j] == voyellesCourantes[k]) { cptV++; };
-                }
-            }
-            return cptV;
+            return DonneesLettres.nbVoyelles(matrice);
         }
         public class Noeud
         {
@@ -335,6 +324,7 @@ namespace AbreDico
             public bool FinDeMot { get; set; }
             public Dictionary<char, Noeud> DictionnaireDesSousNoeuds;
         }
+      
         public Form1()
         {
             InitializeComponent();
@@ -348,18 +338,7 @@ namespace AbreDico
         /// <param name="Word">Mot de travail</param>
         /// 
 
-        bool estVoyelle(char lettre)
-        {
-            bool retour = false;
-            for (int i = 0; i < voyellesCourantes.Length; i++)
-            {
-                if (voyellesCourantes[i] == lettre)
-                {
-                    retour = true;
-                }
-            }
-            return retour;
-        }
+       
         bool estConsonneChiante(char lettre)
         {
             bool retour = false;
@@ -385,7 +364,7 @@ namespace AbreDico
             }
             return cpt;
         }
-       
+
 
         public void AjoutLettreCouranteSiBesoin(Noeud noeudParent, int indexLettreCourante, string Word)  //Création de l'arbre 
         {
@@ -481,7 +460,7 @@ namespace AbreDico
 
         private void BtVerifMot(object sender, EventArgs e)
         {
-            VerifMot();            
+            VerifMot();
             this.textBox1.Clear();
             scoreMotJoueur = 0;
             labScoreMotJoueur.Text = "";
@@ -489,7 +468,7 @@ namespace AbreDico
         }
 
         private void VerifMot()
-        {           
+        {
             this.pictureBox1.Visible = false;
             if (motexiste(this.textBox1.Text))
             {
@@ -521,7 +500,7 @@ namespace AbreDico
                     this.ImageTriste.Visible = true;
                 }
             }
-        
+
         }
 
         bool motexiste(string Mot)
@@ -560,7 +539,7 @@ namespace AbreDico
             else
             { return false; }
         }
-     
+
 
         private void textBox1_Enter(object sender, EventArgs e)
         {
@@ -575,9 +554,9 @@ namespace AbreDico
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {          
-            scoreMotJoueur = 0;           
-            nouvelleDonne();           
+        {
+            scoreMotJoueur = 0;
+            nouvelleDonne();
             dessineMatrice();
             textBox1.Clear();
             pictureBox1.Visible = true;
@@ -586,7 +565,7 @@ namespace AbreDico
         private void nouvelleDonne()
         {
             creerMatrice();
-            dessineMatrice();         
+            dessineMatrice();
         }
         private void initDataPourGrille()
         {
@@ -595,7 +574,7 @@ namespace AbreDico
             affectePoidsDesLettres();
             affecteDidifficulteUtilisationLettre();
         }
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~é
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         private void Form1_Load(object sender, EventArgs e)
         {
             string T;
@@ -614,8 +593,8 @@ namespace AbreDico
                     T = cpt.ToString();
                     L.Text = T;
                     L.Name = T;
-                    L.Width = pas-20;
-                    L.Height = pas -20;
+                    L.Width = pas - 20;
+                    L.Height = pas - 20;
                     L.Top = 20 + j * pas;
                     L.Left = 20 + i * pas;
                     L.ForeColor = CouleurDefaut;
@@ -624,10 +603,11 @@ namespace AbreDico
             }
             Init(); // Pour la contruction d'un arbre des lettres à partir de la liste demot français        
             initDataPourGrille();
-            nouvelleDonne();            
+            nouvelleDonne();
         }
-        int retourneColonne(string V)  
-            // rencoie le n° de colonne en fonction de la chaine porant le nom du label
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        int retourneColonne(string V)
+        // rencoie le n° de colonne en fonction de la chaine porant le nom du label
         {
             int co = 0;
             int a = Convert.ToInt32(V);
@@ -649,7 +629,7 @@ namespace AbreDico
         // rencoie le n° de ligne en fonction de la chaine porant le nom du label
         {
             int a = Convert.ToInt32(V);
-            int  li = Convert.ToInt32(Math.Truncate(a / 4.1));
+            int li = Convert.ToInt32(Math.Truncate(a / 4.1));
             return li;
         }
         private void LableEstChoisi(object sender, EventArgs e)
@@ -657,7 +637,7 @@ namespace AbreDico
             int li = 0;
             int co = -4;
             Label choisi = (Label)sender;
-            string n = choisi.Name;           
+            string n = choisi.Name;
             li = retourneLigne(n);
             co = retourneColonne(n);
             choisi.Visible = false;
@@ -675,7 +655,16 @@ namespace AbreDico
             casePrecedente.x = caseChoisie.x;
             casePrecedente.y = caseChoisie.y;
         }
-
+        private void initialiseTablocochage()
+        {   // met toutes les case du tablo des cases cochées = false
+            for(int j=0; j<4;j++)
+            {
+                for(int i=0;i<4;i++)
+                {
+                    TabloCochage[i, j] = false;
+                }
+            }
+        }
         private void dessineMatrice()
         {
             int cpt = 0, li = 0, co = 0;
@@ -685,7 +674,7 @@ namespace AbreDico
                 foreach (Label a in Controls.OfType<Label>())
                 {
                     //  MessageBox.Show(matrice[cpt].ToString()+" co="+co.ToString()+" li ="+li.ToString());
-                    a.ForeColor = CouleurDefaut;                   
+                    a.ForeColor = CouleurDefaut;
                     nomDuLabel = matrice[cpt].ToString();
                     a.Text = nomDuLabel;
                     a.Visible = true;
@@ -706,12 +695,13 @@ namespace AbreDico
             }
             casePrecedente.x = -1; //initialise case précédente
             casePrecedente.y = -1;
+            initialiseTablocochage();
         }
 
         bool estVoisine()
         {    // retourn vrai si la case est une case voisine 
             int rx, ry;
-            labNotification.Text = "";            
+            labNotification.Text = "";
             if (casePrecedente.x != -1) // pas la première case
             {// traitement
                 rx = Math.Abs(caseChoisie.x - casePrecedente.x);
@@ -752,6 +742,7 @@ namespace AbreDico
         {
             caseChoisie.x = CO;
             caseChoisie.y = LI;
+           // trouveVoisinePossible(CO, LI);
             if (estVoisine())
             {
 
@@ -759,9 +750,10 @@ namespace AbreDico
                 {
                     if (a.Name == nomDuLabel) // si le label est celui cliqué
                     {
-                       
-                            this.textBox1.Text = this.textBox1.Text + a.Text;
-                            actualiseScoreMot(char.Parse(a.Text));                       
+
+                        this.textBox1.Text = this.textBox1.Text + a.Text;
+                        actualiseScoreMot(char.Parse(a.Text));
+                        TabloCochage[CO, LI] = true;
                     }
 
                     definitCoupleCaseCochee(LI, CO);
@@ -769,9 +761,36 @@ namespace AbreDico
             }
         }
 
-     
-    }
-}
+       private void trouveVoisinePossible(int X,int Y)
+        { 
+            // NE FONCTIONNE PAS => A DEBOGUER
+            int coordonneeX=0;
+            int coordonneeY=0;
+            for (int dx=-1;dx<2;dx++)
+            {
+                for (int dy=-1;dy<2;dy++)
+                {
+                  
+                        coordonneeX = X + dx;
+                        coordonneeY = Y + dy;
+                    MessageBox.Show("=>  "+coordonneeX.ToString() + " , " + coordonneeY.ToString());
+                    if (coordonneeX != X && coordonneeY != Y) // cas le la case d'appel
+                    {
+                        if (coordonneeX>=0 &&coordonneeX<4 && coordonneeY>=0 && coordonneeY<4)
+                        {
+                            MessageBox.Show(coordonneeX.ToString() + " , " + coordonneeY.ToString() + " voisine acceptable");
+                        }
+                        else
+                        {
+                            MessageBox.Show(coordonneeX.ToString() + " , " + coordonneeY.ToString() + " voisine PAS acceptable");
+                        }
+                    }
+                }
+            }
+        }
+}// fin classe Form1
+ 
+}// FIn  namspace
 
 
 
