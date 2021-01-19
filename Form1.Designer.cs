@@ -40,21 +40,19 @@ namespace AbreDico
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.button1 = new System.Windows.Forms.Button();
-            
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labNotification = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.labScoreTotal = new System.Windows.Forms.Label();
             this.labScoreMotJoueur = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.panelMIAP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ImageGai)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImageTriste)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelMIAP
@@ -66,17 +64,17 @@ namespace AbreDico
             this.panelMIAP.Controls.Add(this.ImageTriste);
             this.panelMIAP.Controls.Add(this.textBox1);
             this.panelMIAP.Controls.Add(this.BtCreateTree);
-            this.panelMIAP.Location = new System.Drawing.Point(708, 15);
+            this.panelMIAP.Location = new System.Drawing.Point(284, 13);
             this.panelMIAP.Margin = new System.Windows.Forms.Padding(4);
             this.panelMIAP.Name = "panelMIAP";
-            this.panelMIAP.Size = new System.Drawing.Size(526, 226);
+            this.panelMIAP.Size = new System.Drawing.Size(348, 226);
             this.panelMIAP.TabIndex = 1;
             // 
             // labelMot
             // 
             this.labelMot.AutoSize = true;
             this.labelMot.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelMot.Location = new System.Drawing.Point(199, 41);
+            this.labelMot.Location = new System.Drawing.Point(104, 61);
             this.labelMot.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelMot.Name = "labelMot";
             this.labelMot.Size = new System.Drawing.Size(123, 25);
@@ -98,7 +96,7 @@ namespace AbreDico
             // ImageTriste
             // 
             this.ImageTriste.Image = global::AbreDico.Properties.Resources.triste;
-            this.ImageTriste.Location = new System.Drawing.Point(431, 6);
+            this.ImageTriste.Location = new System.Drawing.Point(248, 20);
             this.ImageTriste.Margin = new System.Windows.Forms.Padding(4);
             this.ImageTriste.Name = "ImageTriste";
             this.ImageTriste.Size = new System.Drawing.Size(65, 62);
@@ -110,10 +108,10 @@ namespace AbreDico
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(22, 76);
+            this.textBox1.Location = new System.Drawing.Point(22, 90);
             this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(473, 30);
+            this.textBox1.Size = new System.Drawing.Size(291, 30);
             this.textBox1.TabIndex = 3;
             this.textBox1.Enter += new System.EventHandler(this.textBox1_Enter);
             // 
@@ -122,7 +120,7 @@ namespace AbreDico
             this.BtCreateTree.Location = new System.Drawing.Point(22, 142);
             this.BtCreateTree.Margin = new System.Windows.Forms.Padding(4);
             this.BtCreateTree.Name = "BtCreateTree";
-            this.BtCreateTree.Size = new System.Drawing.Size(474, 51);
+            this.BtCreateTree.Size = new System.Drawing.Size(291, 51);
             this.BtCreateTree.TabIndex = 0;
             this.BtCreateTree.Text = "Vérification";
             this.BtCreateTree.UseVisualStyleBackColor = true;
@@ -131,7 +129,7 @@ namespace AbreDico
             // pictureBox1
             // 
             this.pictureBox1.Image = global::AbreDico.Properties.Resources.tenor;
-            this.pictureBox1.Location = new System.Drawing.Point(945, 272);
+            this.pictureBox1.Location = new System.Drawing.Point(291, 241);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(220, 220);
@@ -146,7 +144,7 @@ namespace AbreDico
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(708, 272);
+            this.button1.Location = new System.Drawing.Point(33, 249);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(170, 29);
@@ -154,23 +152,28 @@ namespace AbreDico
             this.button1.Text = "nouvelle donne";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // textBox2
             // 
-            this.textBox2.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(296, 21);
+            this.textBox2.Enabled = false;
+            this.textBox2.Font = new System.Drawing.Font("Lucida Console", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.Location = new System.Drawing.Point(532, 253);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox2.Size = new System.Drawing.Size(52, 471);
+            this.textBox2.Size = new System.Drawing.Size(55, 155);
             this.textBox2.TabIndex = 20;
+            this.textBox2.Visible = false;
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.labNotification);
-            this.panel1.Location = new System.Drawing.Point(14, 272);
+            this.panel1.Location = new System.Drawing.Point(14, 179);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(270, 57);
             this.panel1.TabIndex = 21;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // labNotification
             // 
@@ -186,7 +189,7 @@ namespace AbreDico
             this.panel2.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.panel2.Controls.Add(this.labScoreTotal);
             this.panel2.Controls.Add(this.labScoreMotJoueur);
-            this.panel2.Location = new System.Drawing.Point(13, 348);
+            this.panel2.Location = new System.Drawing.Point(12, 285);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(271, 144);
             this.panel2.TabIndex = 22;
@@ -213,20 +216,22 @@ namespace AbreDico
             this.labScoreMotJoueur.TabIndex = 0;
             this.labScoreMotJoueur.Text = "0";
             // 
-            // panel3
+            // listBox1
             // 
-          
-            this.panel3.Location = new System.Drawing.Point(384, 32);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(317, 325);
-            this.panel3.TabIndex = 23;
+            this.listBox1.Enabled = false;
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 20;
+            this.listBox1.Location = new System.Drawing.Point(639, 18);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(195, 444);
+            this.listBox1.TabIndex = 23;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1249, 562);
-            this.Controls.Add(this.panel3);
+            this.ClientSize = new System.Drawing.Size(846, 474);
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.textBox2);
@@ -238,7 +243,7 @@ namespace AbreDico
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
-            this.Text = "Vérification de l\'existance d\'un mot français";
+            this.Text = "Wordament by G Viot";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Shown += new System.EventHandler(this.Form1_Shown);
             this.panelMIAP.ResumeLayout(false);
@@ -250,8 +255,6 @@ namespace AbreDico
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -274,7 +277,7 @@ namespace AbreDico
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label labScoreMotJoueur;
         private System.Windows.Forms.Label labScoreTotal;
-        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.ListBox listBox1;
     }
 }
 

@@ -180,7 +180,7 @@ namespace AbreDico
                 }
                 if (accord)
                 {
-                    this.textBox2.Text = this.textBox2.Text + lettre.ToString() + " TIRE = " + nbDeLaLettre(lettre).ToString() + " fois \r\n";
+                  //  this.textBox2.Text = this.textBox2.Text + lettre.ToString() + " TIRE = " + nbDeLaLettre(lettre).ToString() + " fois \r\n";
                     difficulteLettre = TabloDifficulte[a];
                     if (TabloConsonneOuVoyelle[a] == 1) // détermine si le caractère est ou non une voyelle
                     {
@@ -385,41 +385,7 @@ namespace AbreDico
             }
             return cpt;
         }
-        /*  public void dessineMatrice2()
-          {
-              tableauDeLettres[0, 0] = matrice[0];
-              L1.Text = tableauDeLettres[0, 0].ToString();
-              tableauDeLettres[0, 1] = matrice[1];
-              L2.Text = tableauDeLettres[0, 1].ToString();
-              tableauDeLettres[0, 2] = matrice[2];
-              L3.Text = tableauDeLettres[0, 2].ToString();
-              tableauDeLettres[0, 3] = matrice[3];
-              L4.Text = tableauDeLettres[0, 3].ToString();
-              tableauDeLettres[1, 0] = matrice[4];
-              L5.Text = tableauDeLettres[1, 0].ToString();
-              tableauDeLettres[1, 1] = matrice[5];
-              L6.Text = tableauDeLettres[1, 1].ToString();
-              tableauDeLettres[1, 2] = matrice[6];
-              L7.Text = tableauDeLettres[1, 2].ToString();
-              tableauDeLettres[1, 3] = matrice[7];
-              L8.Text = tableauDeLettres[1, 3].ToString();
-              tableauDeLettres[2, 0] = matrice[8];
-              L9.Text = tableauDeLettres[2, 0].ToString();
-              tableauDeLettres[2, 1] = matrice[9];
-              L10.Text = tableauDeLettres[2, 1].ToString();
-              tableauDeLettres[2, 2] = matrice[10];
-              L11.Text = tableauDeLettres[2, 2].ToString();
-              tableauDeLettres[2, 3] = matrice[11];
-              L12.Text = tableauDeLettres[2, 3].ToString();
-              tableauDeLettres[3, 0] = matrice[12];
-              L13.Text = tableauDeLettres[3, 0].ToString();
-              tableauDeLettres[3, 1] = matrice[13];
-              L14.Text = tableauDeLettres[3, 1].ToString();
-              tableauDeLettres[3, 2] = matrice[14];
-              L15.Text = tableauDeLettres[3, 2].ToString();
-              tableauDeLettres[3, 3] = matrice[15];
-              L16.Text = tableauDeLettres[3, 3].ToString();
-          }*/
+       
 
         public void AjoutLettreCouranteSiBesoin(Noeud noeudParent, int indexLettreCourante, string Word)  //Création de l'arbre 
         {
@@ -515,29 +481,46 @@ namespace AbreDico
 
         private void BtVerifMot(object sender, EventArgs e)
         {
-            VerifMot();
-            // SI mot OK ajouter mot à table des mots utilisés.
+            VerifMot();            
+            this.textBox1.Clear();
+            scoreMotJoueur = 0;
+            labScoreMotJoueur.Text = "";
             dessineMatrice();
         }
 
         private void VerifMot()
-        {
+        {           
             this.pictureBox1.Visible = false;
-            if (motexiste(this.textBox1.Text.ToUpper()))
+            if (motexiste(this.textBox1.Text))
             {
-                this.ImageGai.Visible = true;
-                this.ImageTriste.Visible = false;
-                scoreTotal += scoreMotJoueur;
-                labScoreTotal.Text = scoreTotal.ToString();
-                scoreMotJoueur = 0;
-                this.textBox1.Clear();
+                bool dejaUtilise = false;
+                for (int cptM = 0; cptM < listBox1.Items.Count; cptM++)
+                {
+                    if (listBox1.Items[cptM].ToString() == textBox1.Text)
+                    {
+                        dejaUtilise = true;
+                        labNotification.Text = "Mot déja choisi";
+                    }
+                }
 
+                if (dejaUtilise == false)
+                {
+                    this.ImageGai.Visible = true;
+                    this.ImageTriste.Visible = false;
+                    scoreTotal += scoreMotJoueur;
+                    labScoreTotal.Text = scoreTotal.ToString();
+                    scoreMotJoueur = 0;
+                    listBox1.Items.Add(textBox1.Text);
+                    // this.textBox2.Text = this.textBox2.Text + this.textBox1.Text + "\r\n";
+                    this.textBox1.Clear();
+                }
+                else
+                {
+                    this.ImageGai.Visible = false;
+                    this.ImageTriste.Visible = true;
+                }
             }
-            else
-            {
-                this.ImageGai.Visible = false;
-                this.ImageTriste.Visible = true;
-            }
+        
         }
 
         bool motexiste(string Mot)
@@ -593,27 +576,21 @@ namespace AbreDico
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {
-            //timer1.Start();    
-            //debog();
-            //   MessageBox.Show("ouf");
-            scoreMotJoueur = 0;
-            int scoreTotal = 0;
-            nouvelleDonne();
-            couple c1 = new couple(); // ces 2 lignes sont pour tester
-            c1.x = -1; c1.y = -1;
+        {          
+            scoreMotJoueur = 0;           
+            nouvelleDonne();           
             dessineMatrice();
             textBox1.Clear();
+            pictureBox1.Visible = true;
         }
 
         private void nouvelleDonne()
         {
             creerMatrice();
-            dessineMatrice();
-            //  initialiseSuiteJoueur();
+            dessineMatrice();         
         }
         private void initDataPourGrille()
-        {         
+        {
             genereAlphabet();
             affecteConsonneOuVoyelle();
             affectePoidsDesLettres();
@@ -642,40 +619,36 @@ namespace AbreDico
                     L.ForeColor = CouleurDefaut;
                     L.Show();
                 }
-                              
             }
             Init(); // Pour la contruction d'un arbre des lettres à partir de la liste demot français        
             initDataPourGrille();
-            nouvelleDonne();
+            nouvelleDonne();            
         }
 
         private void LableEstChoisi(object sender, EventArgs e)
         {
             int li = 0;
-            int     co = -4;
+            int co = -4;
             Label choisi = (Label)sender;
-                choisi.ForeColor = CouleurDeSelection;
-                this.textBox1.Text = this.textBox1.Text + choisi.Text;
-                int a = Convert.ToInt32(choisi.Name);
-            li =  Convert.ToInt32( Math.Truncate( a /4.1));
-            co = a - (li*4)-1;
-            /*    if (a < 4)// première ligne
-                {
-                    li = 0; co = a;
-                }
-                if (a > 3 && a < 8)// 
-                {
-                    li = 1; co = a - 4;
-                }
-                if (a > 7 && a < 12)// 
-                {
-                    li = 2; co = a - 8;
-                }
-                if (a > 11 && a < 16)// 
-                {
-                    li = 3; co = a - 12;
-                }*/
-                GereClicSurLettre(choisi.Name.ToString(), li, co);           
+            choisi.ForeColor = CouleurDeSelection;            
+            int a = Convert.ToInt32(choisi.Name);
+            li = Convert.ToInt32(Math.Truncate(a / 4.1));
+            //   co = a - (li*4)-1;
+            float q = (a % 4);
+            if (q == 0)
+            {
+                q = 3;
+                co = 3;
+            }
+            else
+            {
+                q--;
+
+                co = Convert.ToInt32(q);
+            }
+            
+            choisi.Visible = false;
+            GereClicSurLettre(choisi.Name.ToString(), li, co);
         }
 
 
@@ -702,6 +675,7 @@ namespace AbreDico
                     a.ForeColor = CouleurDefaut;
                     nomDuLabel = matrice[cpt].ToString();
                     a.Text = nomDuLabel;
+                    a.Visible = true;
                     tableauDeLettres[li, co] = matrice[cpt];
                     co++;
                     if (co == 4)
@@ -724,13 +698,7 @@ namespace AbreDico
         bool estVoisine()
         {
             int rx, ry;
-            labNotification.Text = "";
-            if ((caseChoisie.x == casePrecedente.x) && (caseChoisie.y == casePrecedente.y))
-            {
-                // case cochée précédemment recochée
-                labNotification.Text = "Choix innacceptable case recochée";
-                return false;
-            }
+            labNotification.Text = "";            
             if (casePrecedente.x != -1) // pas la première case
             {// traitement
                 rx = Math.Abs(caseChoisie.x - casePrecedente.x);
@@ -738,7 +706,7 @@ namespace AbreDico
                 if ((rx >= -1 && rx <= 1) && (ry >= -1 && ry <= 1))
                 {
                     stockeCaseChoisie();
-                    labNotification.Text = "Choix OK";
+                    labNotification.Text = " ";
                     return true;
                 }
                 else
@@ -750,7 +718,7 @@ namespace AbreDico
             else
             {
                 stockeCaseChoisie();
-                labNotification.Text = "Choix OK";
+                labNotification.Text = " ";
                 return true;
             }
         }
@@ -778,21 +746,24 @@ namespace AbreDico
                 {
                     if (a.Name == nomDuLabel) // si le label est celui cliqué
                     {
-                        if (a.ForeColor == CouleurDefaut) // colorie en fonction de l'état antérieur
-                        {
-                            a.ForeColor = CouleurDeSelection;
+                       
                             this.textBox1.Text = this.textBox1.Text + a.Text;
-                            actualiseScoreMot(char.Parse(a.Text));
-                        }
-                        else
-                        {
-                            a.ForeColor = CouleurAvertissement; // pointe sur deja sélectionné                        } 
-                        }
+                            actualiseScoreMot(char.Parse(a.Text));                       
                     }
 
                     definitCoupleCaseCochee(LI, CO);
                 }
             }
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
