@@ -21,136 +21,39 @@ namespace AbreDico
 
     public partial class Form1 : Form
     {
-        //=================================================================             
-        public Noeud NoeudRacine { get; private set; }
         // crée une variable d'instance à laquelle on affectera le noeud racine (passage du pointeur) 
         //pour en disposer dans Form1
-
-        //  private static readonly string MotResultatNom = "MOTSRESULTAT.txt";
         // **** Couleurs de l'environnement
-        Color CouleurDefaut = Color.FromName("Navy");     
+        readonly Color CouleurDefaut = Color.FromName("Navy");
         // Variables de classe
         int scoreMotJoueur = 0;
         int scoreTotal = 0;
-        // Tableaux de la classe
-        char[] matrice = new char[16];
-       
-        char[] consonnesChiantes = { 'W', 'X', 'J', 'Q', 'V', 'K', 'Y', 'H' };
-        char[] alphabet = new char[26];
-        int[] TabloConsonneOuVoyelle = new int[26]; //consonne (0) ou Voyelle (1)
-        int[] TabloPointsParLettre = new int[26];
-        int[] TabloDifficulte = new int[26];
-       // string[] suiteLabelJoueur = new string[16];
-        char[,] tableauDeLettres = new char[4, 4];
-        bool[,] TabloCochage = new bool[4, 4];
-        // [Nonbre de points associés, consonne (0) ou Voyelle (1),Type de la lettre]
-        // Type de la lettre 0:courante ,1: moyennement chiante, 2:assez chiante 3: très chiante.
-        // Classes        
-        couple caseChoisie = new couple();
-        couple casePrecedente = new couple();
-
+        public Noeud NoeudRacine { get; private set; }
         //=================================================================
-        void genereAlphabet()
-        {
-            for (int i = 65; i < 91; i++)
-            {
-                alphabet[i - 65] = Convert.ToChar(i);
-            }
-        }
-        private void button_Click(object sender, EventArgs e)
+
+        private void Button_Click(object sender, EventArgs e)
         {
             Button clicked = (Button)sender;
             MessageBox.Show("Button " + clicked.Name + " was Clicked.");
         }
-        private void debog()
-        {
-            genereAlphabet();
-            affecteConsonneOuVoyelle();
-            affecteDidifficulteUtilisationLettre();
-            affectePoidsDesLettres();
-            string ch = "", s = "";
-            this.textBox2.Clear();
-            for (int i = 0; i < 26; i++)
-            {
-                ch = i.ToString() + " " + alphabet[i].ToString();
-                if (TabloConsonneOuVoyelle[i] == 0) { s = " cons "; } else { s = " voyL "; }
-                s = s + " dif: " + TabloDifficulte[i] + " points : " + TabloPointsParLettre[i] + "\r\n";
-                this.textBox2.Text = this.textBox2.Text + ch + s;
-            }
-        }
-        public void affecteConsonneOuVoyelle()
-        {
-            for (int i = 0; i < 26; i++)
-            {
-                TabloConsonneOuVoyelle[i] = 0; // Lettre courante (mis en consonne par défaut)
-            }
-            //voyelles*
-            TabloConsonneOuVoyelle[0] = 1; //A
-            TabloConsonneOuVoyelle[4] = 1; //E 
-            TabloConsonneOuVoyelle[8] = 1; //I
-            TabloConsonneOuVoyelle[14] = 1; //O
-            TabloConsonneOuVoyelle[20] = 1; //U
-            TabloConsonneOuVoyelle[24] = 1; //Y
-        }
-        public void affectePoidsDesLettres()
-        {
-            for (int i = 0; i < 26; i++)
-            {
-                TabloPointsParLettre[i] = 1; // Lettres communes
-            }
-            TabloPointsParLettre[5] = 4; //F
-            TabloPointsParLettre[6] = 2; //G
-            TabloPointsParLettre[7] = 4; //H
-            TabloPointsParLettre[10] = 10; //K
-            TabloPointsParLettre[11] = 2; //L
-            TabloPointsParLettre[12] = 2; //M
-            TabloPointsParLettre[15] = 3; //P
-            TabloPointsParLettre[16] = 8; //Q
-            TabloPointsParLettre[21] = 5; //V
-            TabloPointsParLettre[22] = 15; //W
-            TabloPointsParLettre[23] = 10; //X
-            TabloPointsParLettre[24] = 8; //Y
-            TabloPointsParLettre[25] = 10; //Z
-        }
-        public void affecteDidifficulteUtilisationLettre()
-        {
-            for (int i = 0; i < 26; i++)
-            {
-                TabloDifficulte[i] = 0; // Sans difficulté
-            }
-            for (int i = 11; i < 16; i++)
-            {
-                TabloDifficulte[i] = 1; // L M N O P peu de difficulté
-            }
-            TabloDifficulte[5] = 2; // F  difficulté moyenne
-            TabloDifficulte[20] = 2;//U
-            TabloDifficulte[14] = 2;//O
-            TabloDifficulte[6] = 2; //G
-            TabloDifficulte[7] = 3; // H difficulté prononcée
-            TabloDifficulte[21] = 3;//V
-            TabloDifficulte[10] = 4; // difficulté très prononcée 
-            TabloDifficulte[9] = 4;  //J
-            TabloDifficulte[16] = 4;//Q
-            for (int i = 22; i < 26; i++) // W X Y Z
-            {
-                TabloDifficulte[i] = 4;
-            }
-        }
-        int placeDansLaMatrice(char C)
-        {
-            int i = 0;
-            while (C != alphabet[i])
-            {
-                i++;
-                if (i > 15)
-                {
-                    i = -1;
-                    break;
-                }
-            }           
-            return i;
-        }
-        public void creerMatrice() // Génère aléatoirement des lettres qui sont mises dans le tableau"matrice"
+        /* private void Debog()
+         {
+             GenereAlphabet();
+             AffecteConsonneOuVoyelle();
+             AffecteDidifficulteUtilisationLettre();
+             AffectePoidsDesLettres();
+             this.textBox2.Clear();
+             for (int i = 0; i < 26; i++)
+             {
+                 string chaine = i.ToString() + " " + DonneesLettres. alphabet[i].ToString();
+                 string s;
+                 if (TabloConsonneOuVoyelle[i] == 0) { s = " cons "; } else { s = " voyL "; }
+                 s = s + " dif: " + TabloDifficulte[i] + " points : " + TabloPointsParLettre[i] + "\r\n";
+                 this.textBox2.Text = this.textBox2.Text + chaine + s;
+             }
+         }*/
+
+        public void CreerMatrice() // Génère aléatoirement des lettres qui sont mises dans le tableau"matrice"
         {
             int cptVoyelle = 0;
             int voyelleDeSuite = 0;
@@ -160,7 +63,7 @@ namespace AbreDico
             int maxVoyelle = 6;
             bool estUneVoyelle;
             bool accord = true;
-            char lettre, lettrePrecedente = ' ';
+            char lettre;
             var rand = new Random();
             // remplit un tableau [0..15] d'un caractère aléatoire
             int i = 0;
@@ -168,18 +71,18 @@ namespace AbreDico
             while (i < 16)
             {
                 int a = rand.Next(0, 25);
-                lettre = alphabet[a];
+                lettre = DonneesLettres.alphabet[a];
                 if (i > 0)
                 {
-                    if (lettre != matrice[i - 1])
+                    if (lettre != DonneesLettres.matrice[i - 1])
                     { accord = true; }
                     else { accord = false; }
                 }
                 if (accord)
                 {
                     //  this.textBox2.Text = this.textBox2.Text + lettre.ToString() + " TIRE = " + nbDeLaLettre(lettre).ToString() + " fois \r\n";
-                    difficulteLettre = TabloDifficulte[a];
-                    if (TabloConsonneOuVoyelle[a] == 1) // détermine si le caractère est ou non une voyelle
+                    difficulteLettre = DonneesLettres.TabloDifficulte[a];
+                    if (DonneesLettres.TabloConsonneOuVoyelle[a] == 1) // détermine si le caractère est ou non une voyelle
                     {
                         estUneVoyelle = true;
                     }
@@ -193,11 +96,11 @@ namespace AbreDico
                         {  // cas autorisé
                             if (difficulteLettre > 0) // si tirage voyelle difficile
                             {
-                                if (placeDansLaMatrice(lettre) == -1 && noteDeChiant <= 4)
+                                if (DonneesLettres.PlaceDansLaMatrice(lettre) == -1 && noteDeChiant <= 4)
                                 {
                                     //difficile pas en double
-                                    matrice[i] = lettre;
-                                    noteDeChiant = noteDeChiant + TabloDifficulte[i];
+                                    DonneesLettres.matrice[i] = lettre;
+                                    noteDeChiant += DonneesLettres.TabloDifficulte[i];
                                     cptVoyelle++; i++;
                                     voyelleDeSuite++;
                                     consonneDeSuite = 0;
@@ -207,7 +110,7 @@ namespace AbreDico
                             else
                             {
                                 // voyelle facile
-                                matrice[i] = lettre;
+                                DonneesLettres.matrice[i] = lettre;
                                 voyelleDeSuite++;
                                 consonneDeSuite = 0;
                                 //  this.textBox2.Text = this.textBox2.Text + "Voyelle facile Ajoutée = " + lettre.ToString() + "\r\n";
@@ -220,10 +123,10 @@ namespace AbreDico
                         {
                             if (difficulteLettre < 2) // facile 
                             {
-                                if ((difficulteLettre == 2 && placeDansLaMatrice(lettre) == -1) || ((difficulteLettre <= 1)) && (nbDeLaLettre(lettre) < 3))
+                                if ((difficulteLettre == 2 && DonneesLettres.PlaceDansLaMatrice(lettre) == -1) || ((difficulteLettre <= 1)) && (DonneesLettres.NbDeLaLettre(lettre) < 3))
                                 // si la lettre de difficulté 2 n'est pas déjà tirée
                                 {
-                                    matrice[i] = lettre;
+                                    DonneesLettres.matrice[i] = lettre;
                                     consonneDeSuite++;
                                     voyelleDeSuite = 0;
                                     i++;
@@ -239,11 +142,11 @@ namespace AbreDico
                             }
                             else
                             { // pas facile                      
-                                if ((noteDeChiant < 3) && (nbDeLaLettre(lettre) < 2))// acceptable et pas doublé
+                                if ((noteDeChiant < 3) && (DonneesLettres.NbDeLaLettre(lettre) < 2))// acceptable et pas doublé
                                 {
                                     noteDeChiant += difficulteLettre;
                                     // augmentation de la note globale de chiant
-                                    matrice[i] = lettre;
+                                    DonneesLettres.matrice[i] = lettre;
                                     consonneDeSuite++;
                                     voyelleDeSuite = 0;
                                     i++;
@@ -258,29 +161,28 @@ namespace AbreDico
                             }
                         } // consoles d'affilé
                     }
-                    lettrePrecedente = lettre;
                 } // fin du if = lettre precedente et conssonne et voyelles à suivre trop nombreuses
 
 
             }  // fin du while remmplissage matrice                    
 
             // modifications pour rendre plus jouable
-            if (nbDeLaLettre('E') < 2) // pas assez de E
+            if (DonneesLettres.NbDeLaLettre('E') < 2) // pas assez de E
             {
                 int difMax = 0;
                 for (int j = 0; j < 16; j++)  // Repérage du plus haut diveau de difficulté présent
                 {
-                    if (TabloDifficulte[j] > difMax)
+                    if (DonneesLettres.TabloDifficulte[j] > difMax)
                     {
-                        difMax = TabloDifficulte[j];
+                        difMax = DonneesLettres.TabloDifficulte[j];
                     }
                 }
                 for (int j = 0; j < 16; j++) // la première lettre di niveau de difficulté Max est remplacée par E
                 {
-                    if (TabloDifficulte[j] == difMax)
+                    if (DonneesLettres.TabloDifficulte[j] == difMax)
                     {
                         //  this.textBox2.Text = this.textBox2.Text + matrice[j].ToString() + " remplacée par = E \r\n";
-                        matrice[j] = 'E';
+                        DonneesLettres.matrice[j] = 'E';
                         cptVoyelle++;
                         j = 16;
                     }
@@ -295,17 +197,16 @@ namespace AbreDico
             {
                 int aChanger = maxVoyelle - cptVoyelle - 1;
                 int tour = 0;
-                int b = 0;
                 char car;
                 while (tour < aChanger)
                 { // substitution de consonnes par des voyelles
-                    b = rand.Next(0, 15);
-                    car = (matrice[b]);
-                    if (!DonneesLettres.estVoyelle(car))
+                    int b = rand.Next(0, 15);
+                    car = (DonneesLettres.matrice[b]);
+                    if (!DonneesLettres.EstVoyelle(car))
                     {
                         int c = rand.Next(0, 2);
                         //   this.textBox2.Text = this.textBox2.Text + matrice[b].ToString() + " remplacée par = " + voyellesCourantes[c] + " \r\n";
-                        matrice[b] = DonneesLettres.voyellesCourantes[c];
+                        DonneesLettres.matrice[b] = DonneesLettres.voyellesCourantes[c];
                         tour++;
                     }
 
@@ -314,57 +215,11 @@ namespace AbreDico
             }
             // MessageBox.Show("nb voyelles =" + cptVoyelle);
         }
-        int nbVoyelles()
-        {
-            return DonneesLettres.nbVoyelles(matrice);
-        }
-        public class Noeud
-        {
-            public char Lettre { get; set; }
-            public bool FinDeMot { get; set; }
-            public Dictionary<char, Noeud> DictionnaireDesSousNoeuds;
-        }
-      
+
         public Form1()
         {
             InitializeComponent();
         }
-
-        /// <summary>
-        /// Cette methode ajoute la lettre a l index courant au noeud Parent.
-        /// </summary>
-        /// <param name="noeudParent">Noeud auquel sera rajoute la lettre si elle n existe pas</param>
-        /// <param name="indexLettreCourante">Index de la lettre a rajouter si besoi de la string Word.</param>
-        /// <param name="Word">Mot de travail</param>
-        /// 
-
-       
-        bool estConsonneChiante(char lettre)
-        {
-            bool retour = false;
-            for (int i = 0; i < consonnesChiantes.Length; i++)
-            {
-                if (consonnesChiantes[i] == lettre)
-                {
-                    retour = true;
-                }
-            }
-            return retour;
-        }
-
-        private int nbDeLaLettre(char c) // renvoi le nombre d'occurences de la lettre dans matrice ([0..15] of char
-        {
-            int cpt = 0;
-            for (int i = 0; i < matrice.Length - 1; i++)
-            {
-                if (matrice[i] == c)
-                {
-                    cpt++;
-                }
-            }
-            return cpt;
-        }
-
 
         public void AjoutLettreCouranteSiBesoin(Noeud noeudParent, int indexLettreCourante, string Word)  //Création de l'arbre 
         {
@@ -396,8 +251,10 @@ namespace AbreDico
             else
             {
                 //le dico existe et  clé pas trouvée => ajout noeud dans dico
-                Noeud noeudEnfant = new Noeud();
-                noeudEnfant.Lettre = lettreCourante;
+                Noeud noeudEnfant = new Noeud
+                {
+                    Lettre = lettreCourante
+                };
                 if (indexLettreCourante == Word.Length - 1)
                 {   // dernière lettre du mot  : On ajoute le noeud correspondant
                     noeudEnfant.FinDeMot = true;
@@ -442,10 +299,12 @@ namespace AbreDico
         private void CreationArbreDico(string[] lignesDico)
         {
             //création de la racine
-            Noeud racine = new Noeud();
-            racine.Lettre = ' ';
-            racine.FinDeMot = false;
-            racine.DictionnaireDesSousNoeuds = null;
+            Noeud racine = new Noeud
+            {
+                Lettre = ' ',
+                FinDeMot = false,
+                DictionnaireDesSousNoeuds = null
+            };
             // traitement des mots               
             for (int i = 0; i <= lignesDico.Length - 1; i++)  // traitement des lettres du mot
             {
@@ -458,32 +317,32 @@ namespace AbreDico
             this.NoeudRacine = racine; // affecte à NoeudRacine accessible partout dans form1 la valeur du pointeur de Racine
         }
 
-        private void BtVerifMot(object sender, EventArgs e)
+        private void BoutonVerifMot(object sender, EventArgs e)
         {
             VerifMot();
             this.textBox1.Clear();
             scoreMotJoueur = 0;
             labScoreMotJoueur.Text = "";
-            dessineMatrice();
+            DessineMatrice();
         }
 
         private void VerifMot()
         {
             this.pictureBox1.Visible = false;
-            if (motexiste(this.textBox1.Text))
+            if (Motexiste(this.textBox1.Text))
             {
-                bool dejaUtilise = false;
+                bool MotDejaUtilise = false;
                 for (int cptM = 0; cptM < listBox1.Items.Count; cptM++)
                 {
                     if (listBox1.Items[cptM].ToString() == textBox1.Text)
                     {
-                        dejaUtilise = true;
+                        MotDejaUtilise = true;
                         labNotification.Text = "Mot déja choisi";
-                        dessineMatrice();
+                        DessineMatrice();
                     }
                 }
 
-                if (dejaUtilise == false)
+                if (MotDejaUtilise == false)
                 {
                     this.ImageGai.Visible = true;
                     this.ImageTriste.Visible = false;
@@ -503,10 +362,10 @@ namespace AbreDico
 
         }
 
-        bool motexiste(string Mot)
+        bool Motexiste(string Mot)
         {
             int lg = Mot.Length;
-            Noeud noeudCourant = NoeudRacine;
+            Noeud noeudCourant = this.NoeudRacine;
             for (int i = 0; i < lg; i++) // Faire pour toutes les lettres du mot
             {
                 char lettreCourante = Mot[i];
@@ -540,40 +399,28 @@ namespace AbreDico
             { return false; }
         }
 
-
-        private void textBox1_Enter(object sender, EventArgs e)
+        private void TextBox1_Enter(object sender, EventArgs e)
         {
             this.pictureBox1.Visible = true;
             this.ImageGai.Visible = false;
             this.ImageTriste.Visible = false;
         }
-        int t = 0;
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            t++;
-        }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             scoreMotJoueur = 0;
-            nouvelleDonne();
-            dessineMatrice();
+            NouvelleDonne();
+            DessineMatrice();
             textBox1.Clear();
             pictureBox1.Visible = true;
         }
 
-        private void nouvelleDonne()
+        private void NouvelleDonne()
         {
-            creerMatrice();
-            dessineMatrice();
+            CreerMatrice();
+            DessineMatrice();
         }
-        private void initDataPourGrille()
-        {
-            genereAlphabet();
-            affecteConsonneOuVoyelle();
-            affectePoidsDesLettres();
-            affecteDidifficulteUtilisationLettre();
-        }
+
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -586,9 +433,11 @@ namespace AbreDico
                 {
                     cpt++;
                     int pas = 60;
-                    Label L = new System.Windows.Forms.Label();
-                    L.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                    L.Parent = this;
+                    Label L = new System.Windows.Forms.Label
+                    {
+                        Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0))),
+                        Parent = this
+                    };
                     L.Click += new EventHandler(LableEstChoisi);
                     T = cpt.ToString();
                     L.Text = T;
@@ -602,90 +451,42 @@ namespace AbreDico
                 }
             }
             Init(); // Pour la contruction d'un arbre des lettres à partir de la liste demot français        
-            initDataPourGrille();
-            nouvelleDonne();
+            DonneesLettres.InitDataPourGrille();
+            NouvelleDonne();
         }
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        int retourneColonne(string V)
-        // rencoie le n° de colonne en fonction de la chaine porant le nom du label
-        {
-            int co = 0;
-            int a = Convert.ToInt32(V);
-            float q = (a % 4);
-            if (q == 0)
-            {
-                q = 3;
-                co = 3;
-            }
-            else
-            {
-                q--;
 
-                co = Convert.ToInt32(q);
-            }
-            return co;
-        }
-        int retourneLigne(string V)
-        // rencoie le n° de ligne en fonction de la chaine porant le nom du label
-        {
-            int a = Convert.ToInt32(V);
-            int li = Convert.ToInt32(Math.Truncate(a / 4.1));
-            return li;
-        }
         private void LableEstChoisi(object sender, EventArgs e)
         {
-            int li = 0;
-            int co = -4;
             Label choisi = (Label)sender;
             string n = choisi.Name;
-            li = retourneLigne(n);
-            co = retourneColonne(n);
+            int li = DonneesLettres.RetourneLigneDuLabel(n);
+            int co = DonneesLettres.RetourneColonneDuLabel(n);
             choisi.Visible = false;
             GereClicSurLettre(choisi.Name.ToString(), li, co);
         }
 
-
-        private void definitCoupleCaseCochee(int X, int Y)
+        private void DessineMatrice()
         {
-            caseChoisie.x = X;
-            caseChoisie.y = Y;
-        }
-        private void stockeCaseChoisie()
-        {
-            casePrecedente.x = caseChoisie.x;
-            casePrecedente.y = caseChoisie.y;
-        }
-        private void initialiseTablocochage()
-        {   // met toutes les case du tablo des cases cochées = false
-            for(int j=0; j<4;j++)
-            {
-                for(int i=0;i<4;i++)
-                {
-                    TabloCochage[i, j] = false;
-                }
-            }
-        }
-        private void dessineMatrice()
-        {
-            int cpt = 0, li = 0, co = 0;
+            int compteur = 0, ligne = 0, colonne = 0;
             string nomDuLabel;
             try
             {
-                foreach (Label a in Controls.OfType<Label>())
+                foreach (Label lableDeLette in Controls.OfType<Label>())
                 {
                     //  MessageBox.Show(matrice[cpt].ToString()+" co="+co.ToString()+" li ="+li.ToString());
-                    a.ForeColor = CouleurDefaut;
-                    nomDuLabel = matrice[cpt].ToString();
-                    a.Text = nomDuLabel;
-                    a.Visible = true;
-                    tableauDeLettres[li, co] = matrice[cpt];
-                    co++;
-                    if (co == 4)
+                    lableDeLette.ForeColor = CouleurDefaut;
+                    nomDuLabel = DonneesLettres.matrice[compteur].ToString();
+                    lableDeLette.Text = nomDuLabel;
+                    lableDeLette.Visible = true;
+                    DonneesLettres.tableauDeLettres[ligne, colonne] = DonneesLettres.matrice[compteur];
+                    colonne++;
+                    if (colonne == 4)
                     {
-                        co = 0;
-                        li++;
+                        colonne = 0;
+                        ligne++;
                     }
-                    cpt++;
+                    compteur++;
                 }
             }
 
@@ -693,22 +494,22 @@ namespace AbreDico
             {
                 MessageBox.Show("Erreur dans la boucle foreach de dessinneMatrice");
             }
-            casePrecedente.x = -1; //initialise case précédente
-            casePrecedente.y = -1;
-            initialiseTablocochage();
+            DonneesLettres.casePrecedente.X = -1; //initialise case précédente
+            DonneesLettres.casePrecedente.Y = -1;
+            DonneesLettres.InitialiseTablocochage();
         }
 
-        bool estVoisine()
+        bool EstVoisineDeCasePrecedente()
         {    // retourn vrai si la case est une case voisine 
             int rx, ry;
             labNotification.Text = "";
-            if (casePrecedente.x != -1) // pas la première case
+            if (DonneesLettres.casePrecedente.X != -1) // pas la première case
             {// traitement
-                rx = Math.Abs(caseChoisie.x - casePrecedente.x);
-                ry = Math.Abs(caseChoisie.y - casePrecedente.y);
+                rx = Math.Abs(DonneesLettres.caseChoisie.X - DonneesLettres.casePrecedente.X);
+                ry = Math.Abs(DonneesLettres.caseChoisie.Y - DonneesLettres.casePrecedente.Y);
                 if ((rx >= -1 && rx <= 1) && (ry >= -1 && ry <= 1))
                 {
-                    stockeCaseChoisie();
+                    DonneesLettres.StockeCaseChoisie();
                     labNotification.Text = " ";
                     return true;
                 }
@@ -720,76 +521,78 @@ namespace AbreDico
             }
             else
             {
-                stockeCaseChoisie();
+                DonneesLettres.StockeCaseChoisie();
                 labNotification.Text = " ";
                 return true;
             }
         }
 
-        void actualiseScoreMot(char C)
+        private void GereClicSurLettre(string nomDuLabel, int ligne, int colonne)
         {
-            for (int i = 0; i < alphabet.Length - 1; i++)
+            DonneesLettres.caseChoisie.X = colonne;
+            DonneesLettres.caseChoisie.Y = ligne;
+            TrouveVoisinePossible(colonne, ligne);
+            if (EstVoisineDeCasePrecedente())
             {
-                if (alphabet[i] == C) // caractère identifié
+
+                foreach (Label labelDeLetrre in Controls.OfType<Label>()) // pour tous les label de la form
                 {
-                    scoreMotJoueur += TabloPointsParLettre[i];
+                    if (labelDeLetrre.Name == nomDuLabel) // si le label est celui cliqué
+                    {
+
+                        this.textBox1.Text += labelDeLetrre.Text;
+                        ActualiseScoreMot(char.Parse(labelDeLetrre.Text));
+                        DonneesLettres.TabloCochage[colonne, ligne] = true;
+                    }
+
+                    DonneesLettres.DefinitCoupleCaseCochee(ligne, colonne);
+                }
+            }
+        }
+        void ActualiseScoreMot(char C)
+        {
+            for (int i = 0; i < DonneesLettres.alphabet.Length - 1; i++)
+            {
+                if (DonneesLettres.alphabet[i] == C) // caractère identifié
+                {
+                    scoreMotJoueur += DonneesLettres.TabloPointsParLettre[i];
                     labScoreMotJoueur.Text = scoreMotJoueur.ToString();
                 }
             }
         }
 
-        private void GereClicSurLettre(string nomDuLabel, int LI, int CO)
+
+        private void TrouveVoisinePossible(int X, int Y)
         {
-            caseChoisie.x = CO;
-            caseChoisie.y = LI;
-           // trouveVoisinePossible(CO, LI);
-            if (estVoisine())
+            for (int dx = -1; dx < 2; dx++)
             {
-
-                foreach (Label a in Controls.OfType<Label>()) // pourn tous les label de la form
+                for (int dy = -1; dy < 2; dy++)
                 {
-                    if (a.Name == nomDuLabel) // si le label est celui cliqué
-                    {
 
-                        this.textBox1.Text = this.textBox1.Text + a.Text;
-                        actualiseScoreMot(char.Parse(a.Text));
-                        TabloCochage[CO, LI] = true;
+                    // NE FONCTIONNE PAS => A DEBOGUER
+                    int coordonneeX = X + dx;
+                    int coordonneeY = Y + dy;
+                    //   MessageBox.Show("=>  "+coordonneeX.ToString() + " , " + coordonneeY.ToString()+ " X="+X.ToString()+" Y="+Y.ToString());
+                    if ((coordonneeX == X) && (coordonneeY == Y)) // si coordonée différentes de la case d'appel
+                    {
+                        //   MessageBox.Show(coordonneeX.ToString() + " , " + coordonneeY.ToString() + " case d'appel");
                     }
-
-                    definitCoupleCaseCochee(LI, CO);
-                }
-            }
-        }
-
-       private void trouveVoisinePossible(int X,int Y)
-        { 
-            // NE FONCTIONNE PAS => A DEBOGUER
-            int coordonneeX=0;
-            int coordonneeY=0;
-            for (int dx=-1;dx<2;dx++)
-            {
-                for (int dy=-1;dy<2;dy++)
-                {
-                  
-                        coordonneeX = X + dx;
-                        coordonneeY = Y + dy;
-                    MessageBox.Show("=>  "+coordonneeX.ToString() + " , " + coordonneeY.ToString());
-                    if (coordonneeX != X && coordonneeY != Y) // cas le la case d'appel
+                    else
                     {
-                        if (coordonneeX>=0 &&coordonneeX<4 && coordonneeY>=0 && coordonneeY<4)
+                        if (coordonneeX >= 0 && coordonneeX < 4 && coordonneeY >= 0 && coordonneeY < 4)
                         {
-                            MessageBox.Show(coordonneeX.ToString() + " , " + coordonneeY.ToString() + " voisine acceptable");
+                            //   MessageBox.Show(coordonneeX.ToString() + " , " + coordonneeY.ToString() + " voisine acceptable");
                         }
                         else
                         {
-                            MessageBox.Show(coordonneeX.ToString() + " , " + coordonneeY.ToString() + " voisine PAS acceptable");
+                            //   MessageBox.Show(coordonneeX.ToString() + " , " + coordonneeY.ToString() + " voisine PAS acceptable");
                         }
                     }
                 }
             }
         }
-}// fin classe Form1
- 
+    }// fin classe Form1
+
 }// FIn  namspace
 
 

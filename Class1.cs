@@ -8,9 +8,8 @@ namespace AbreDico
 {
     public class Case
     {
-        public int x { get; set; }
-        public int y { get; set; }
-        public Dictionary<char, Case> DictionnaireDesSousCases;
+        public couple coordonnées;        
+        public Dictionary<char, Case> DictionnaireDesCasesVoisiness;
     }
     public class couple
     {

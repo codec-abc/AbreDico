@@ -29,7 +29,6 @@ namespace AbreDico
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panelMIAP = new System.Windows.Forms.Panel();
             this.labelMot = new System.Windows.Forms.Label();
@@ -38,7 +37,6 @@ namespace AbreDico
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.BtCreateTree = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.button1 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -114,7 +112,7 @@ namespace AbreDico
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(291, 30);
             this.textBox1.TabIndex = 3;
-            this.textBox1.Enter += new System.EventHandler(this.textBox1_Enter);
+            this.textBox1.Enter += new System.EventHandler(this.TextBox1_Enter);
             // 
             // BtCreateTree
             // 
@@ -125,7 +123,7 @@ namespace AbreDico
             this.BtCreateTree.TabIndex = 0;
             this.BtCreateTree.Text = "Vérification";
             this.BtCreateTree.UseVisualStyleBackColor = true;
-            this.BtCreateTree.Click += new System.EventHandler(this.BtVerifMot);
+            this.BtCreateTree.Click += new System.EventHandler(this.BoutonVerifMot);
             // 
             // pictureBox1
             // 
@@ -138,11 +136,6 @@ namespace AbreDico
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
-            // timer1
-            // 
-            this.timer1.Interval = 10;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(13, 282);
@@ -152,7 +145,7 @@ namespace AbreDico
             this.button1.TabIndex = 3;
             this.button1.Text = "nouvelle donne";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // textBox2
             // 
@@ -265,7 +258,6 @@ namespace AbreDico
         private System.Windows.Forms.PictureBox ImageTriste;
         private System.Windows.Forms.PictureBox ImageGai;
         private System.Windows.Forms.Label labelMot;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button button1;
      
         private System.Windows.Forms.TextBox textBox2;
