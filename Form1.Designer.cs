@@ -45,6 +45,7 @@ namespace AbreDico
             this.labScoreTotal = new System.Windows.Forms.Label();
             this.labScoreMotJoueur = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.bt_Rotation = new System.Windows.Forms.Button();
             this.panelMIAP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ImageGai)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImageTriste)).BeginInit();
@@ -128,11 +129,12 @@ namespace AbreDico
             // pictureBox1
             // 
             this.pictureBox1.Image = global::AbreDico.Properties.Resources.tenor;
-            this.pictureBox1.Location = new System.Drawing.Point(291, 241);
+            this.pictureBox1.Location = new System.Drawing.Point(412, 318);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.pictureBox1.MaximumSize = new System.Drawing.Size(150, 150);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(220, 220);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.Size = new System.Drawing.Size(150, 135);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
@@ -141,7 +143,7 @@ namespace AbreDico
             this.button1.Location = new System.Drawing.Point(13, 282);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(270, 29);
+            this.button1.Size = new System.Drawing.Size(154, 29);
             this.button1.TabIndex = 3;
             this.button1.Text = "nouvelle donne";
             this.button1.UseVisualStyleBackColor = true;
@@ -151,7 +153,7 @@ namespace AbreDico
             // 
             this.textBox2.Enabled = false;
             this.textBox2.Font = new System.Drawing.Font("Lucida Console", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(532, 253);
+            this.textBox2.Location = new System.Drawing.Point(156, 33);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -182,7 +184,7 @@ namespace AbreDico
             this.panel2.Controls.Add(this.labScoreMotJoueur);
             this.panel2.Location = new System.Drawing.Point(13, 318);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(271, 144);
+            this.panel2.Size = new System.Drawing.Size(392, 144);
             this.panel2.TabIndex = 22;
             // 
             // labScoreTotal
@@ -217,11 +219,23 @@ namespace AbreDico
             this.listBox1.Size = new System.Drawing.Size(195, 444);
             this.listBox1.TabIndex = 23;
             // 
+            // bt_Rotation
+            // 
+            this.bt_Rotation.Location = new System.Drawing.Point(250, 282);
+            this.bt_Rotation.Margin = new System.Windows.Forms.Padding(4);
+            this.bt_Rotation.Name = "bt_Rotation";
+            this.bt_Rotation.Size = new System.Drawing.Size(154, 29);
+            this.bt_Rotation.TabIndex = 24;
+            this.bt_Rotation.Text = "Rotation";
+            this.bt_Rotation.UseVisualStyleBackColor = true;
+            this.bt_Rotation.Click += new System.EventHandler(this.Bt_Rotation_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(846, 474);
+            this.Controls.Add(this.bt_Rotation);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -267,6 +281,7 @@ namespace AbreDico
         private System.Windows.Forms.Label labScoreMotJoueur;
         private System.Windows.Forms.Label labScoreTotal;
         private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Button bt_Rotation;
     }
 }
 

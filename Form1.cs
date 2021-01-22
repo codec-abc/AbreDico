@@ -25,9 +25,7 @@ namespace AbreDico
         //pour en disposer dans Form1
         // **** Couleurs de l'environnement
         readonly Color CouleurDefaut = Color.FromName("Navy");
-        // Variables de classe
-        /*  int scoreMotJoueur = 0;
-          int scoreTotal = 0;*/
+        // Variables de classe      
         public Noeud NoeudRacine { get; private set; }
         //=================================================================
 
@@ -213,6 +211,18 @@ namespace AbreDico
                 }
                 //  fin modifications pour rendre plus jouable
             }
+            // transfert des lettres de Matrice vers tableaudelettres
+            int ligne = 0, colonne = 0;
+            for (int r = 0; r < 16; r++)
+            {
+                DonneesLettres.tableauDeLettres[ligne, colonne] = DonneesLettres.matrice[r];
+                colonne++;
+                if (colonne == 4)
+                {
+                    ligne++;
+                    colonne = 0;
+                }
+            }
             // MessageBox.Show("nb voyelles =" + cptVoyelle);
         }
 
@@ -310,6 +320,11 @@ namespace AbreDico
 
         private void NouvelleDonne()
         { //Réalise un nouveau tirage de lettres
+            this.listBox1.Items.Clear();
+            DataGame.RazScoreMotJoueur();
+            DataGame.RazScoreTotal();
+            labScoreMotJoueur.Text = ("Score du mot");
+            labScoreTotal.Text = ("Score de la partie.");
             CreerMatrice();
             DessineMatrice();
         }
@@ -344,11 +359,11 @@ namespace AbreDico
                     L.X = i;
                     L.Y = j;
                     L.Show();
-
                 }
             }
             DataGame.RazScoreMotJoueur();
-            InitialiseEnvironnement(); // Pour la contruction d'un arbre des lettres à partir de la liste demot français        
+            DataGame.RazScoreTotal();
+            InitialiseEnvironnement(); // Pour la contruction d'un arbre des lettres à partir de la liste des mots français        
             DonneesLettres.InitDataPourGrille();
             NouvelleDonne();
         }
@@ -365,27 +380,16 @@ namespace AbreDico
             Choisi.Visible = false;
             GereClicSurLettre(Choisi.Name.ToString(), Choisi.Y, Choisi.X);
         }
-
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         private void DessineMatrice()
         {
-            int compteur = 0, ligne = 0, colonne = 0;
-            string nomDuLabel;
+            int compteur = 0;            
             try
             {
-                foreach (LAbelXY lableDeLette in Controls.OfType<LAbelXY>())
-                {
-                    //  MessageBox.Show(matrice[cpt].ToString()+" co="+co.ToString()+" li ="+li.ToString());
-                    lableDeLette.ForeColor = CouleurDefaut;
-                    nomDuLabel = DonneesLettres.matrice[compteur].ToString();
-                    lableDeLette.Text = nomDuLabel;
-                    lableDeLette.Visible = true;
-                    DonneesLettres.tableauDeLettres[ligne, colonne] = DonneesLettres.matrice[compteur];
-                    colonne++;
-                    if (colonne == 4)
-                    {
-                        colonne = 0;
-                        ligne++;
-                    }
+                foreach (LAbelXY labelDeLettre in Controls.OfType<LAbelXY>())
+                {                   
+                    labelDeLettre.Text = DonneesLettres.tableauDeLettres[labelDeLettre.Y, labelDeLettre.X].ToString();
+                    labelDeLettre.Visible = true;                    
                     compteur++;
                 }
             }
@@ -496,8 +500,11 @@ namespace AbreDico
             }
         }
 
-
-
+        private void Bt_Rotation_Click(object sender, EventArgs e)
+        {
+            DonneesLettres.TourneTableauDeLettres();
+            DessineMatrice();
+        }
     }// fin classe Form1
 
 }// FIn  namspace

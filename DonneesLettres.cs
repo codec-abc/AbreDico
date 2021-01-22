@@ -43,7 +43,7 @@ namespace AbreDico
     }
     class DonneesLettres
     {
-        public static int scoreMotJoueur()
+        public static int ScoreMotJoueur()
         {
             return 0;
         }
@@ -86,6 +86,61 @@ namespace AbreDico
         public static readonly Couple caseChoisie = new Couple();
         public static readonly Couple casePrecedente = new Couple();
 
+        public static void TourneTableauDeLettres()
+        {
+            char[,] TableauDeTravail = new char[4, 4];
+            // Vidage du tableau
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    TableauDeTravail[i, j] = '?';
+                }
+            }
+
+
+            for (int j = 0; j < 4; j++) // From line 0 to target column 3
+            {
+                TableauDeTravail[j, 3] = tableauDeLettres[0, j];
+            }
+            
+            for (int j = 0; j < 4; j++) // From column 3 to target line 3
+            {
+                TableauDeTravail[3 , 3-j] = tableauDeLettres[j, 3];
+            }
+            
+              for (int j = 0; j < 4; j++) // From line 3 to target column 0
+              {
+                  TableauDeTravail[j, 0] = tableauDeLettres[3, j];
+              }
+           
+            for (int j = 0; j < 4; j++) // From column 0 to target line 0
+            {
+                TableauDeTravail[0, 3-j] = tableauDeLettres[j, 0];
+            }
+
+            for (int j = 1; j <3 ; j++) // From column 1 to target line 1
+            {
+                TableauDeTravail[1, 3 - j] = tableauDeLettres[j, 1];
+            }
+            for (int j = 1; j < 3; j++) // From line 1 to target column2 1
+            {
+                TableauDeTravail[j, 2] = tableauDeLettres[1, j];
+            }
+            for (int j = 1; j < 3; j++) // From column 2 to target line 2
+            {
+                TableauDeTravail[2, 3 - j] = tableauDeLettres[j, 2];
+            }
+
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    tableauDeLettres[i, j] = TableauDeTravail[i, j];
+                }
+            }
+
+        }
         public static void AffecteConsonneOuVoyelle()
         {
             for (int i = 0; i < 26; i++)
@@ -192,31 +247,6 @@ namespace AbreDico
             }
             return i;
         }
-        public static int RetourneColonneDuLabel(string ValueInLabelText)
-        // rencoie le n° de colonne en fonction de la chaine portant le nom du label
-        {
-            int a = Convert.ToInt32(ValueInLabelText);
-            float q = (a % 4);
-            int co;
-            if (q == 0)
-            {
-                co = 3;
-            }
-            else
-            {
-                q--;
-
-                co = Convert.ToInt32(q);
-            }
-            return co;
-        }
-        public static int RetourneLigneDuLabel(string V)
-        // rencoie le n° de ligne en fonction de la chaine porant le nom du label
-        {
-            int a = Convert.ToInt32(V);
-            int li = Convert.ToInt32(Math.Truncate(a / 4.1));
-            return li;
-        }
         public static int NbDeLaLettre(char c) // renvoi le nombre d'occurences de la lettre dans matrice ([0..15] of char
         {
             int cpt = 0;
@@ -229,6 +259,7 @@ namespace AbreDico
             }
             return cpt;
         }
+     
     }
 
 }
