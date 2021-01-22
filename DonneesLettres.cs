@@ -9,7 +9,28 @@ namespace AbreDico
     // [Nonbre de points associés, consonne (0) ou Voyelle (1),Type de la lettre]
     // Type de la lettre 0:courante ,1: moyennement chiante, 2:assez chiante 3: très chiante.
     // Classes 
-
+    public class DataGame
+    {
+        // GERE LES SCORES
+        public static int scoreMotJoueur;
+        public static void RazScoreMotJoueur()
+        {
+            scoreMotJoueur = 0;
+        }
+        public static void ActualiseScoreMotJoeur(int ScoreLettre)
+        {
+            scoreMotJoueur += ScoreLettre; // remplacer par nb point du mot
+        }
+        public static int ScoreTotal;
+        public static void RazScoreTotal()
+        {
+            ScoreTotal = 0;
+        }
+        public static void ActualiseScoreTotal(int ScoreMot)
+        {
+            ScoreTotal += ScoreMot;
+        }
+    }
     public class Case
     {
         public Couple coordonnées;
@@ -22,6 +43,11 @@ namespace AbreDico
     }
     class DonneesLettres
     {
+        public static int scoreMotJoueur()
+        {
+            return 0;
+        }
+        public int scoreTotal = 0;
         public static char[] voyellesCourantes = { 'A', 'E', 'I', 'O', 'U' };
         public static bool EstVoyelle(char lettre)
         {
@@ -167,7 +193,7 @@ namespace AbreDico
             return i;
         }
         public static int RetourneColonneDuLabel(string ValueInLabelText)
-        // rencoie le n° de colonne en fonction de la chaine porant le nom du label
+        // rencoie le n° de colonne en fonction de la chaine portant le nom du label
         {
             int a = Convert.ToInt32(ValueInLabelText);
             float q = (a % 4);
@@ -204,4 +230,5 @@ namespace AbreDico
             return cpt;
         }
     }
+
 }

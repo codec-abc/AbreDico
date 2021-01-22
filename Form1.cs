@@ -26,8 +26,8 @@ namespace AbreDico
         // **** Couleurs de l'environnement
         readonly Color CouleurDefaut = Color.FromName("Navy");
         // Variables de classe
-        int scoreMotJoueur = 0;
-        int scoreTotal = 0;
+        /*  int scoreMotJoueur = 0;
+          int scoreTotal = 0;*/
         public Noeud NoeudRacine { get; private set; }
         //=================================================================
 
@@ -221,8 +221,8 @@ namespace AbreDico
             InitializeComponent();
         }
 
-      
-        private void Init()  // initialisation des données pour la construction de l'arbre des lettres des mots français
+
+        private void InitialiseEnvironnement()  // initialisation des données pour la construction de l'arbre des lettres des mots français
         {
             this.pictureBox1.Visible = true;
             // Création de l'arbre à partir du fichier texte.
@@ -230,7 +230,6 @@ namespace AbreDico
             // initialisation du dictionnaire
             // string NomDuDico = "H:\\Famille\\GERALD\\visual_Studio\\Arbre_Dico\\MOTS TRADUITS.txt";
             string NomDuDico = Directory.GetCurrentDirectory() + "\\MOTS TRADUITS.txt";
-
             if (!File.Exists(NomDuDico))
             {
                 MessageBox.Show(NomDuDico + " n'existe pas");
@@ -239,24 +238,25 @@ namespace AbreDico
             {
                 // le fichier existe : Lecture
                 string[] lignesDico = System.IO.File.ReadAllLines(NomDuDico);
-               this.NoeudRacine= GestionDesNoeuds.CreationArbreDico(lignesDico);
+                NoeudRacine = GestionDesNoeuds.NoeudRacineConstructioArbre(lignesDico);
                 this.pictureBox1.Left += 50;
                 this.pictureBox1.Visible = false;
             }
         }
 
-     
+
 
         private void BoutonVerifMot(object sender, EventArgs e)
+        // Bouton qui déclenche l'action de vocontroler si le mot estr acceptable        
         {
             VerifMot();
             this.textBox1.Clear();
-            scoreMotJoueur = 0;
+            DataGame.RazScoreMotJoueur();
             labScoreMotJoueur.Text = "";
             DessineMatrice();
         }
 
-        private void VerifMot()
+        private void VerifMot() // Vérifie si le mot à controler n'est pas un mot déjà utilisé
         {
             this.pictureBox1.Visible = false;
             if (Motexiste(this.textBox1.Text))
@@ -276,11 +276,9 @@ namespace AbreDico
                 {
                     this.ImageGai.Visible = true;
                     this.ImageTriste.Visible = false;
-                    scoreTotal += scoreMotJoueur;
-                    labScoreTotal.Text = scoreTotal.ToString();
-                    scoreMotJoueur = 0;
+                    DataGame.ActualiseScoreTotal(DataGame.scoreMotJoueur);
+                    labScoreTotal.Text = DataGame.ScoreTotal.ToString();
                     listBox1.Items.Add(textBox1.Text);
-                    // this.textBox2.Text = this.textBox2.Text + this.textBox1.Text + "\r\n";
                     this.textBox1.Clear();
                 }
                 else
@@ -292,53 +290,18 @@ namespace AbreDico
 
         }
 
-        bool Motexiste(string Mot)
-        {
-            int lg = Mot.Length;
-            Noeud noeudCourant = this.NoeudRacine;
-            for (int i = 0; i < lg; i++) // Faire pour toutes les lettres du mot
-            {
-                char lettreCourante = Mot[i];
-                if (noeudCourant.DictionnaireDesSousNoeuds != null) // le Dictionnaire du noeud examiné n'est pas null
-                {
-                    if (noeudCourant.DictionnaireDesSousNoeuds.ContainsKey(lettreCourante))//le dico contient la lettre du mot
-                    {
-                        noeudCourant = noeudCourant.DictionnaireDesSousNoeuds[lettreCourante]; // affectation du noeud trouvé pour la lettre pour le tour de boucle suivant                           
-                    }
-                    else
-                    {  // la lettre n'est pas trouvée !
-                        return false;
-                    }
-                }
-                else
-                {
-                    //le dictionnaire est null
-                    if (i != lg)
-                    {
-                        return false;
-                    } // si ce n'est pas la fin de mot c'est anormal on retourne false
-                    else
-                    {
-                        return true;
-                    }// si fin de mot c'est normal on retourne true
-                }
-            }
-            if (noeudCourant.FinDeMot)
-            { return true; }
-            else
-            { return false; }
-        }
+
 
         private void TextBox1_Enter(object sender, EventArgs e)
-        {
+        {// n'est plus utilisé dans la configuration terminée du jeu
             this.pictureBox1.Visible = true;
             this.ImageGai.Visible = false;
             this.ImageTriste.Visible = false;
         }
 
         private void Button1_Click(object sender, EventArgs e)
-        {
-            scoreMotJoueur = 0;
+        {   // Réalise un nouveau tirage de lettres et configure l'IHM
+            DataGame.RazScoreMotJoueur();
             NouvelleDonne();
             DessineMatrice();
             textBox1.Clear();
@@ -346,7 +309,7 @@ namespace AbreDico
         }
 
         private void NouvelleDonne()
-        {
+        { //Réalise un nouveau tirage de lettres
             CreerMatrice();
             DessineMatrice();
         }
@@ -363,10 +326,11 @@ namespace AbreDico
                 {
                     cpt++;
                     int pas = 60;
-                    Label L = new System.Windows.Forms.Label
+                    //  Label L = new System.Windows.Forms.Label();
+                    LAbelXY L = new LAbelXY();
                     {
-                        Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0))),
-                        Parent = this
+                        L.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        L.Parent = this;
                     };
                     L.Click += new EventHandler(LableEstChoisi);
                     T = cpt.ToString();
@@ -377,23 +341,29 @@ namespace AbreDico
                     L.Top = 20 + j * pas;
                     L.Left = 20 + i * pas;
                     L.ForeColor = CouleurDefaut;
+                    L.X = i;
+                    L.Y = j;
                     L.Show();
+
                 }
             }
-            Init(); // Pour la contruction d'un arbre des lettres à partir de la liste demot français        
+            DataGame.RazScoreMotJoueur();
+            InitialiseEnvironnement(); // Pour la contruction d'un arbre des lettres à partir de la liste demot français        
             DonneesLettres.InitDataPourGrille();
             NouvelleDonne();
         }
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+        class LAbelXY : Label
+        {
+            public int X { get; set; }
+            public int Y { get; set; }
+        }
         private void LableEstChoisi(object sender, EventArgs e)
         {
-            Label choisi = (Label)sender;
-            string n = choisi.Name;
-            int li = DonneesLettres.RetourneLigneDuLabel(n);
-            int co = DonneesLettres.RetourneColonneDuLabel(n);
-            choisi.Visible = false;
-            GereClicSurLettre(choisi.Name.ToString(), li, co);
+            LAbelXY Choisi = (LAbelXY)sender;
+            //   this.Text = Choisi.X.ToString() + ", " + Choisi.Y.ToString();
+            Choisi.Visible = false;
+            GereClicSurLettre(Choisi.Name.ToString(), Choisi.Y, Choisi.X);
         }
 
         private void DessineMatrice()
@@ -402,7 +372,7 @@ namespace AbreDico
             string nomDuLabel;
             try
             {
-                foreach (Label lableDeLette in Controls.OfType<Label>())
+                foreach (LAbelXY lableDeLette in Controls.OfType<LAbelXY>())
                 {
                     //  MessageBox.Show(matrice[cpt].ToString()+" co="+co.ToString()+" li ="+li.ToString());
                     lableDeLette.ForeColor = CouleurDefaut;
@@ -456,22 +426,57 @@ namespace AbreDico
                 return true;
             }
         }
-
+        bool Motexiste(string Mot)
+        {
+            int lg = Mot.Length;
+            Noeud noeudCourant = this.NoeudRacine;
+            for (int i = 0; i < lg; i++) // Faire pour toutes les lettres du mot
+            {
+                char lettreCourante = Mot[i];
+                if (noeudCourant.DictionnaireDesSousNoeuds != null) // le Dictionnaire du noeud examiné n'est pas null
+                {
+                    if (noeudCourant.DictionnaireDesSousNoeuds.ContainsKey(lettreCourante))//le dico contient la lettre du mot
+                    {
+                        noeudCourant = noeudCourant.DictionnaireDesSousNoeuds[lettreCourante]; // affectation du noeud trouvé pour la lettre pour le tour de boucle suivant                           
+                    }
+                    else
+                    {  // la lettre n'est pas trouvée !
+                        return false;
+                    }
+                }
+                else
+                {
+                    //le dictionnaire est null
+                    if (i != lg)
+                    {
+                        return false;
+                    } // si ce n'est pas la fin de mot c'est anormal on retourne false
+                    else
+                    {
+                        return true;
+                    }// si fin de mot c'est normal on retourne true
+                }
+            }
+            if (noeudCourant.FinDeMot)
+            { return true; }
+            else
+            { return false; }
+        }
         private void GereClicSurLettre(string nomDuLabel, int ligne, int colonne)
         {
             DonneesLettres.caseChoisie.X = colonne;
             DonneesLettres.caseChoisie.Y = ligne;
-            TrouveVoisinePossible(colonne, ligne);
+            ParcoursDeMatrice.TrouveVoisinePossible(colonne, ligne);
             if (EstVoisineDeCasePrecedente())
             {
 
-                foreach (Label labelDeLetrre in Controls.OfType<Label>()) // pour tous les label de la form
+                foreach (Label labelDeLettre in Controls.OfType<Label>()) // pour tous les label de la form
                 {
-                    if (labelDeLetrre.Name == nomDuLabel) // si le label est celui cliqué
+                    if (labelDeLettre.Name == nomDuLabel) // si le label est celui cliqué
                     {
 
-                        this.textBox1.Text += labelDeLetrre.Text;
-                        ActualiseScoreMot(char.Parse(labelDeLetrre.Text));
+                        this.textBox1.Text += labelDeLettre.Text;
+                        ActualiseScoreMot(char.Parse(labelDeLettre.Text));
                         DonneesLettres.TabloCochage[colonne, ligne] = true;
                     }
 
@@ -485,42 +490,14 @@ namespace AbreDico
             {
                 if (DonneesLettres.alphabet[i] == C) // caractère identifié
                 {
-                    scoreMotJoueur += DonneesLettres.TabloPointsParLettre[i];
-                    labScoreMotJoueur.Text = scoreMotJoueur.ToString();
+                    DataGame.ActualiseScoreMotJoeur(DonneesLettres.TabloPointsParLettre[i]);
+                    labScoreMotJoueur.Text = DataGame.scoreMotJoueur.ToString();
                 }
             }
         }
 
 
-        private void TrouveVoisinePossible(int X, int Y)
-        {
-            for (int dx = -1; dx < 2; dx++)
-            {
-                for (int dy = -1; dy < 2; dy++)
-                {
 
-                    // NE FONCTIONNE PAS => A DEBOGUER
-                    int coordonneeX = X + dx;
-                    int coordonneeY = Y + dy;
-                    //   MessageBox.Show("=>  "+coordonneeX.ToString() + " , " + coordonneeY.ToString()+ " X="+X.ToString()+" Y="+Y.ToString());
-                    if ((coordonneeX == X) && (coordonneeY == Y)) // si coordonée différentes de la case d'appel
-                    {
-                        //   MessageBox.Show(coordonneeX.ToString() + " , " + coordonneeY.ToString() + " case d'appel");
-                    }
-                    else
-                    {
-                        if (coordonneeX >= 0 && coordonneeX < 4 && coordonneeY >= 0 && coordonneeY < 4)
-                        {
-                            //   MessageBox.Show(coordonneeX.ToString() + " , " + coordonneeY.ToString() + " voisine acceptable");
-                        }
-                        else
-                        {
-                            //   MessageBox.Show(coordonneeX.ToString() + " , " + coordonneeY.ToString() + " voisine PAS acceptable");
-                        }
-                    }
-                }
-            }
-        }
     }// fin classe Form1
 
 }// FIn  namspace

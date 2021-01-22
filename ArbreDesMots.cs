@@ -13,8 +13,8 @@ namespace AbreDico
         public Dictionary<char, Noeud> DictionnaireDesSousNoeuds;
     }
     public class GestionDesNoeuds
-    {
-       public static Noeud CreationArbreDico(string[] lignesDico)
+    {        
+        public static Noeud NoeudRacineConstructioArbre(string[] lignesDico)
         {
             //création de la racine
             Noeud racine = new Noeud
@@ -85,8 +85,7 @@ namespace AbreDico
                 }
             }
         }
-
-
+    
     }
 
 }
