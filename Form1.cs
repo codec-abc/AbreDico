@@ -29,27 +29,8 @@ namespace AbreDico
         public Noeud NoeudRacine { get; private set; }
         //=================================================================
 
-        private void Button_Click(object sender, EventArgs e)
-        {
-            Button clicked = (Button)sender;
-            MessageBox.Show("Button " + clicked.Name + " was Clicked.");
-        }
-        /* private void Debog()
-         {
-             GenereAlphabet();
-             AffecteConsonneOuVoyelle();
-             AffecteDidifficulteUtilisationLettre();
-             AffectePoidsDesLettres();
-             this.textBox2.Clear();
-             for (int i = 0; i < 26; i++)
-             {
-                 string chaine = i.ToString() + " " + DonneesLettres. alphabet[i].ToString();
-                 string s;
-                 if (TabloConsonneOuVoyelle[i] == 0) { s = " cons "; } else { s = " voyL "; }
-                 s = s + " dif: " + TabloDifficulte[i] + " points : " + TabloPointsParLettre[i] + "\r\n";
-                 this.textBox2.Text = this.textBox2.Text + chaine + s;
-             }
-         }*/
+
+   
 
         public void CreerMatrice() // Génère aléatoirement des lettres qui sont mises dans le tableau"matrice"
         {
@@ -72,7 +53,7 @@ namespace AbreDico
                 lettre = DonneesLettres.alphabet[a];
                 if (i > 0)
                 {
-                    if (lettre != DonneesLettres.matrice[i - 1])
+                    if (lettre != DonneesLettres.TabloListeDesCaracteres[i - 1])
                     { accord = true; }
                     else { accord = false; }
                 }
@@ -97,7 +78,7 @@ namespace AbreDico
                                 if (DonneesLettres.PlaceDansLaMatrice(lettre) == -1 && noteDeChiant <= 4)
                                 {
                                     //difficile pas en double
-                                    DonneesLettres.matrice[i] = lettre;
+                                    DonneesLettres.TabloListeDesCaracteres[i] = lettre;
                                     noteDeChiant += DonneesLettres.TabloDifficulte[i];
                                     cptVoyelle++; i++;
                                     voyelleDeSuite++;
@@ -108,7 +89,7 @@ namespace AbreDico
                             else
                             {
                                 // voyelle facile
-                                DonneesLettres.matrice[i] = lettre;
+                                DonneesLettres.TabloListeDesCaracteres[i] = lettre;
                                 voyelleDeSuite++;
                                 consonneDeSuite = 0;
                                 //  this.textBox2.Text = this.textBox2.Text + "Voyelle facile Ajoutée = " + lettre.ToString() + "\r\n";
@@ -121,10 +102,10 @@ namespace AbreDico
                         {
                             if (difficulteLettre < 2) // facile 
                             {
-                                if ((difficulteLettre == 2 && DonneesLettres.PlaceDansLaMatrice(lettre) == -1) || ((difficulteLettre <= 1)) && (DonneesLettres.NbDeLaLettre(lettre) < 3))
+                                if ((difficulteLettre == 2 && DonneesLettres.PlaceDansLaMatrice(lettre) == -1) || ((difficulteLettre <= 1)) && (DonneesLettres.NbDeLaLettreDansMatrice(lettre) < 3))
                                 // si la lettre de difficulté 2 n'est pas déjà tirée
                                 {
-                                    DonneesLettres.matrice[i] = lettre;
+                                    DonneesLettres.TabloListeDesCaracteres[i] = lettre;
                                     consonneDeSuite++;
                                     voyelleDeSuite = 0;
                                     i++;
@@ -140,11 +121,11 @@ namespace AbreDico
                             }
                             else
                             { // pas facile                      
-                                if ((noteDeChiant < 3) && (DonneesLettres.NbDeLaLettre(lettre) < 2))// acceptable et pas doublé
+                                if ((noteDeChiant < 3) && (DonneesLettres.NbDeLaLettreDansMatrice(lettre) < 2))// acceptable et pas doublé
                                 {
                                     noteDeChiant += difficulteLettre;
                                     // augmentation de la note globale de chiant
-                                    DonneesLettres.matrice[i] = lettre;
+                                    DonneesLettres.TabloListeDesCaracteres[i] = lettre;
                                     consonneDeSuite++;
                                     voyelleDeSuite = 0;
                                     i++;
@@ -165,7 +146,7 @@ namespace AbreDico
             }  // fin du while remmplissage matrice                    
 
             // modifications pour rendre plus jouable
-            if (DonneesLettres.NbDeLaLettre('E') < 2) // pas assez de E
+            if (DonneesLettres.NbDeLaLettreDansMatrice('E') < 2) // pas assez de E
             {
                 int difMax = 0;
                 for (int j = 0; j < 16; j++)  // Repérage du plus haut diveau de difficulté présent
@@ -180,7 +161,7 @@ namespace AbreDico
                     if (DonneesLettres.TabloDifficulte[j] == difMax)
                     {
                         //  this.textBox2.Text = this.textBox2.Text + matrice[j].ToString() + " remplacée par = E \r\n";
-                        DonneesLettres.matrice[j] = 'E';
+                        DonneesLettres.TabloListeDesCaracteres[j] = 'E';
                         cptVoyelle++;
                         j = 16;
                     }
@@ -199,12 +180,12 @@ namespace AbreDico
                 while (tour < aChanger)
                 { // substitution de consonnes par des voyelles
                     int b = rand.Next(0, 15);
-                    car = (DonneesLettres.matrice[b]);
+                    car = (DonneesLettres.TabloListeDesCaracteres[b]);
                     if (!DonneesLettres.EstVoyelle(car))
                     {
                         int c = rand.Next(0, 2);
                         //   this.textBox2.Text = this.textBox2.Text + matrice[b].ToString() + " remplacée par = " + voyellesCourantes[c] + " \r\n";
-                        DonneesLettres.matrice[b] = DonneesLettres.voyellesCourantes[c];
+                        DonneesLettres.TabloListeDesCaracteres[b] = DonneesLettres.voyellesCourantes[c];
                         tour++;
                     }
 
@@ -215,7 +196,7 @@ namespace AbreDico
             int ligne = 0, colonne = 0;
             for (int r = 0; r < 16; r++)
             {
-                DonneesLettres.tableauDeLettres[ligne, colonne] = DonneesLettres.matrice[r];
+                DonneesLettres.tableauDeLettres[ligne, colonne] = DonneesLettres.TabloListeDesCaracteres[r];
                 colonne++;
                 if (colonne == 4)
                 {
@@ -270,13 +251,14 @@ namespace AbreDico
         {
             this.pictureBox1.Visible = false;
             if (Motexiste(this.textBox1.Text))
-            {
+            { // le mot propose par joueur existe
                 bool MotDejaUtilise = false;
                 for (int cptM = 0; cptM < listBox1.Items.Count; cptM++)
-                {
+                {   // verifie si le mot a déjà été proposé
                     if (listBox1.Items[cptM].ToString() == textBox1.Text)
                     {
                         MotDejaUtilise = true;
+                        ImageTriste.Visible = true;
                         labNotification.Text = "Mot déja choisi";
                         DessineMatrice();
                     }
@@ -296,6 +278,10 @@ namespace AbreDico
                     this.ImageGai.Visible = false;
                     this.ImageTriste.Visible = true;
                 }
+            }
+            else 
+            {
+                ImageTriste.Visible = true;
             }
 
         }
@@ -375,6 +361,8 @@ namespace AbreDico
         }
         private void LableEstChoisi(object sender, EventArgs e)
         {
+           ImageGai.Visible = false;
+            ImageTriste.Visible = false;
             LAbelXY Choisi = (LAbelXY)sender;
             //   this.Text = Choisi.X.ToString() + ", " + Choisi.Y.ToString();
             Choisi.Visible = false;
@@ -470,7 +458,7 @@ namespace AbreDico
         {
             DonneesLettres.caseChoisie.X = colonne;
             DonneesLettres.caseChoisie.Y = ligne;
-            ParcoursDeMatrice.TrouveVoisinePossible(colonne, ligne);
+           // ParcoursDeMatrice.TrouveVoisinePossible(colonne, ligne);
             if (EstVoisineDeCasePrecedente())
             {
 

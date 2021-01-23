@@ -15,9 +15,19 @@ namespace AbreDico
             readonly List<Case> Voisines = new List<Case>();             
         }
 
-
-        public static void  TrouveVoisinePossible(int XdeCase, int YdeCase)
+        public static bool[,] TabloUtilisationCase = new bool[4, 4];
+         public static void InitialiseTabloUtilisationCase()
         {
+            for (int i=0; i<4;i++)
+            {
+                for (int j=0;j<4;j++)
+                {
+                    TabloUtilisationCase[i, j] = false;
+                }
+            }
+        }
+        public static void  TrouveVoisinePossible(int XdeCase, int YdeCase)
+        {   
             for (int dx = -1; dx < 2; dx++)
             {
                 for (int dy = -1; dy < 2; dy++)

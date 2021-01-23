@@ -82,7 +82,7 @@ namespace AbreDico
         public static readonly int[] TabloDifficulte = new int[26];
         public static readonly bool[,] TabloCochage = new bool[4, 4];
         public static readonly char[,] tableauDeLettres = new char[4, 4];
-        public static readonly char[] matrice = new char[16];
+        public static readonly char[] TabloListeDesCaracteres = new char[16];
         public static readonly Couple caseChoisie = new Couple();
         public static readonly Couple casePrecedente = new Couple();
 
@@ -247,12 +247,12 @@ namespace AbreDico
             }
             return i;
         }
-        public static int NbDeLaLettre(char c) // renvoi le nombre d'occurences de la lettre dans matrice ([0..15] of char
+        public static int NbDeLaLettreDansMatrice(char c) // renvoi le nombre d'occurences de la lettre dans matrice ([0..15] of char
         {
             int cpt = 0;
-            for (int i = 0; i < DonneesLettres.matrice.Length - 1; i++)
+            for (int i = 0; i < DonneesLettres.TabloListeDesCaracteres.Length - 1; i++)
             {
-                if (DonneesLettres.matrice[i] == c)
+                if (DonneesLettres.TabloListeDesCaracteres[i] == c)
                 {
                     cpt++;
                 }
