@@ -31,11 +31,11 @@ namespace AbreDico
             ScoreTotal += ScoreMot;
         }
     }
-    public class Case
+   /* public class Case
     {
         public Couple coordonnées;
         public Dictionary<char, Case> DictionnaireDesCasesVoisiness;
-    }
+    }*/
     public class Couple
     {
         public int X { get; set; }
@@ -85,6 +85,32 @@ namespace AbreDico
         public static readonly char[] TabloListeDesCaracteres = new char[16];
         public static readonly Couple caseChoisie = new Couple();
         public static readonly Couple casePrecedente = new Couple();
+        public static int PlaceDansLaMatrice(char C)
+        {
+            int i = 0;
+            while (C != DonneesLettres.alphabet[i])
+            {
+                i++;
+                if (i > 15)
+                {
+                    i = -1;
+                    break;
+                }
+            }
+            return i;
+        }
+        public static int NbDeLaLettreDansMatrice(char c) // renvoi le nombre d'occurences de la lettre dans matrice ([0..15] of char
+        {
+            int cpt = 0;
+            for (int i = 0; i < DonneesLettres.TabloListeDesCaracteres.Length - 1; i++)
+            {
+                if (DonneesLettres.TabloListeDesCaracteres[i] == c)
+                {
+                    cpt++;
+                }
+            }
+            return cpt;
+        }
 
         public static void TourneTableauDeLettres()
         {
@@ -233,33 +259,7 @@ namespace AbreDico
             casePrecedente.X = caseChoisie.X;
             casePrecedente.Y = caseChoisie.Y;
         }
-        public static int PlaceDansLaMatrice(char C)
-        {
-            int i = 0;
-            while (C != DonneesLettres.alphabet[i])
-            {
-                i++;
-                if (i > 15)
-                {
-                    i = -1;
-                    break;
-                }
-            }
-            return i;
-        }
-        public static int NbDeLaLettreDansMatrice(char c) // renvoi le nombre d'occurences de la lettre dans matrice ([0..15] of char
-        {
-            int cpt = 0;
-            for (int i = 0; i < DonneesLettres.TabloListeDesCaracteres.Length - 1; i++)
-            {
-                if (DonneesLettres.TabloListeDesCaracteres[i] == c)
-                {
-                    cpt++;
-                }
-            }
-            return cpt;
-        }
-     
+      
     }
 
 }

@@ -493,6 +493,21 @@ namespace AbreDico
             DonneesLettres.TourneTableauDeLettres();
             DessineMatrice();
         }
+
+
+
+
+       
+
+        private void Bt_test_Click(object sender, EventArgs e)
+        {
+            textBox2.Clear();
+            ParcoursDeMatrice.CrerCaseRacine(0, 0);
+            ParcoursDeMatrice.Test+="\r\n"+ ParcoursDeMatrice.CompteurGeneral.ToString();
+            this.textBox2.Text = ParcoursDeMatrice.Test;
+        }
+        
+      
     }// fin classe Form1
 
 }// FIn  namspace

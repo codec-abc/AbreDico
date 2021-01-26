@@ -46,6 +46,7 @@ namespace AbreDico
             this.labScoreMotJoueur = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.bt_Rotation = new System.Windows.Forms.Button();
+            this.bt_test = new System.Windows.Forms.Button();
             this.panelMIAP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ImageGai)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ImageTriste)).BeginInit();
@@ -151,15 +152,13 @@ namespace AbreDico
             // 
             // textBox2
             // 
-            this.textBox2.Enabled = false;
-            this.textBox2.Font = new System.Drawing.Font("Lucida Console", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(156, 33);
+            this.textBox2.Font = new System.Drawing.Font("Lucida Console", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.Location = new System.Drawing.Point(872, 18);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox2.Size = new System.Drawing.Size(55, 155);
+            this.textBox2.Size = new System.Drawing.Size(611, 444);
             this.textBox2.TabIndex = 20;
-            this.textBox2.Visible = false;
             // 
             // panel1
             // 
@@ -230,11 +229,22 @@ namespace AbreDico
             this.bt_Rotation.UseVisualStyleBackColor = true;
             this.bt_Rotation.Click += new System.EventHandler(this.Bt_Rotation_Click);
             // 
+            // bt_test
+            // 
+            this.bt_test.Location = new System.Drawing.Point(509, 266);
+            this.bt_test.Name = "bt_test";
+            this.bt_test.Size = new System.Drawing.Size(75, 23);
+            this.bt_test.TabIndex = 25;
+            this.bt_test.Text = "test";
+            this.bt_test.UseVisualStyleBackColor = true;
+            this.bt_test.Click += new System.EventHandler(this.Bt_test_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(846, 474);
+            this.ClientSize = new System.Drawing.Size(1495, 474);
+            this.Controls.Add(this.bt_test);
             this.Controls.Add(this.bt_Rotation);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.panel2);
@@ -282,6 +292,7 @@ namespace AbreDico
         private System.Windows.Forms.Label labScoreTotal;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button bt_Rotation;
+        private System.Windows.Forms.Button bt_test;
     }
 }
 

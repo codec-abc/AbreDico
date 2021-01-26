@@ -27,8 +27,6 @@ namespace AbreDico
             for (int i = 0; i <= lignesDico.Length - 1; i++)  // traitement des lettres du mot
             {
                 string mot = lignesDico[i];
-                //  this.listBox2.Items.Add(mot);
-                //  MessageBox.Show(mot);
                 // Création de la branche correspondant au mot par passage du noeud racine à la prcédure récussive VerifAjouteLettre                     
                 AjoutLettreCouranteSiBesoin(racine, 0, mot);
             }
