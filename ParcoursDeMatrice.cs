@@ -22,6 +22,7 @@ namespace AbreDico
             //et les ajoute dans la liste des cases voisine de la case passée en pramètre
             int XdeCase = CaseDeTravail.XY.X;
             int YdeCase = CaseDeTravail.XY.Y;
+
             for (int dx = -1; dx < 2; dx++)
             {
                 for (int dy = -1; dy < 2; dy++)
@@ -76,12 +77,12 @@ namespace AbreDico
 
 
         public static int ProfondeurDeRecherche = 0;
-        
+
         public static char[] WordGrid = new char[30];
         public static void AfficheWordGrid()
         {
-            String t2="";
-            for (int i=0; i==ProfondeurDeRecherche;i++)
+            String t2 = "";
+            for (int i = 0; i == ProfondeurDeRecherche; i++)
             {
                 t2 += WordGrid[i];
             }
@@ -96,52 +97,53 @@ namespace AbreDico
             CaseRacine.XY.X = X;
             CaseRacine.XY.Y = Y;
             ParcoursDeMatrice.TabloUtilisationCase[CaseRacine.XY.X, CaseRacine.XY.Y] = true;
-                Test += LettreDeLaCase(CaseRacine)+"\r\n";
+            Test += LettreDeLaCase(CaseRacine) + "\r\n";
             WordGrid[ProfondeurDeRecherche] = LettreDeLaCase(CaseRacine);
             ParcoursDeMatrice.TouverVoisinesAcceptables(CaseRacine);
             int MaxList = CaseRacine.ListeDesVoisines.Count;
-            ProfondeurDeRecherche++;           
+            ProfondeurDeRecherche++;
 
             if (CaseRacine.ListeDesVoisines.Count >= 0)
             { // Si la liste des cases voisines n'est pas vide                                          
                 ExploreCombinaisons(CaseRacine.ListeDesVoisines[0], CaseRacine);
-            }          
-          
+            }
+
         }
+
         public static int CompteurGeneral = 2;
         public static void ExploreCombinaisons(ParcoursDeMatrice.Case CaseCourante, ParcoursDeMatrice.Case CaseAppelante)
         {
             CompteurGeneral++;
-            ParcoursDeMatrice.TouverVoisinesAcceptables(CaseCourante);          
+            ParcoursDeMatrice.TouverVoisinesAcceptables(CaseCourante);
             if (CaseCourante.ListeDesVoisines.Count == 0)
             {
                 //si la liste des voisines de la case courante est vide
                 //on  supprime référence à la case courante dans la listes des cases voisines de la case appelante
-                CaseAppelante.ListeDesVoisines.RemoveAt(0);               
+                CaseAppelante.ListeDesVoisines.RemoveAt(0);
                 ParcoursDeMatrice.TabloUtilisationCase[CaseCourante.XY.X, CaseCourante.XY.Y] = false;
-                ProfondeurDeRecherche--;                
+                ProfondeurDeRecherche--;
             }
             else
             { // La liste des cases voisines de la case courante n'est pas vide
-                ParcoursDeMatrice.TabloUtilisationCase[CaseCourante.XY.X, CaseCourante.XY.Y] = true;             
-              //  ParcoursDeMatrice.WordGrid[ProfondeurDeRecherche] = LettreDeLaCase(CaseCourante);
-                ProfondeurDeRecherche++;              
+                ParcoursDeMatrice.TabloUtilisationCase[CaseCourante.XY.X, CaseCourante.XY.Y] = true;
+                //  ParcoursDeMatrice.WordGrid[ProfondeurDeRecherche] = LettreDeLaCase(CaseCourante);
+                ProfondeurDeRecherche++;
                 ExploreCombinaisons(CaseCourante.ListeDesVoisines[0], CaseCourante);
             }
         }
         public static string Test = ""; // 2 variables à détruire quand le fonctionnement sera OK
-      
+
         //#####################################################################################################
-       // La logique effectue bien une descente de 16 Cases mais n'effectue pas les bifurcation à la remontée!
+        // La logique effectue bien une descente de 16 Cases mais n'effectue pas les bifurcation à la remontée!
         //#####################################################################################################
-       
-        public static char LettreDeLaCase(Case UneCase )
+
+        public static char LettreDeLaCase(Case UneCase)
         {
             return DonneesLettres.tableauDeLettres[UneCase.XY.X, UneCase.XY.Y];
         }
-       
 
-       
+
+
 
     }
 }

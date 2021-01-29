@@ -127,7 +127,7 @@ namespace AbreDico
             ArrayOfUsedCells[DonwCell.X, DonwCell.Y] = true;
             PossibleWord[DonwCell.Level] = LetterOfCell(DonwCell);
             FindAcceptablesNeighbors(DonwCell);
-          //  Test += "=>  " + "\r\n";
+            //  Test += "=>  " + "\r\n";
             ShowCell(DonwCell);
             if (DonwCell.ListOfPossibleNeighbor.Count == 0)
             {
@@ -148,7 +148,7 @@ namespace AbreDico
             else
             {
                 GoOnTree(DonwCell, DonwCell.ListOfPossibleNeighbor[0]);
-                if ( DonwCell.ListOfPossibleNeighbor.Count!=0)
+                if (DonwCell.ListOfPossibleNeighbor.Count != 0)
                 {
                     ArrayOfUsedCells[DonwCell.X, DonwCell.Y] = false;
                     PossibleWord[DonwCell.Level] = '|';
@@ -156,7 +156,7 @@ namespace AbreDico
                 }
             }
 
-          //  ArrayOfUsedCells[DonwCell.X, DonwCell.Y] = false;
+            //  ArrayOfUsedCells[DonwCell.X, DonwCell.Y] = false;
         }
 
         public static void ShowCell(MyCellClass Cell)

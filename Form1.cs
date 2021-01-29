@@ -26,11 +26,11 @@ namespace AbreDico
         // **** Couleurs de l'environnement
         readonly Color CouleurDefaut = Color.FromName("Navy");
         // Variables de classe      
-        public Noeud NoeudRacine { get; private set; }
+        public DictonaryTreeNode NoeudRacine { get; private set; }
         //=================================================================
 
 
-   
+
 
         public void CreerMatrice() // Génère aléatoirement des lettres qui sont mises dans le tableau"matrice"
         {
@@ -279,7 +279,7 @@ namespace AbreDico
                     this.ImageTriste.Visible = true;
                 }
             }
-            else 
+            else
             {
                 ImageTriste.Visible = true;
             }
@@ -361,7 +361,7 @@ namespace AbreDico
         }
         private void LableEstChoisi(object sender, EventArgs e)
         {
-           ImageGai.Visible = false;
+            ImageGai.Visible = false;
             ImageTriste.Visible = false;
             LAbelXY Choisi = (LAbelXY)sender;
             //   this.Text = Choisi.X.ToString() + ", " + Choisi.Y.ToString();
@@ -371,13 +371,13 @@ namespace AbreDico
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         private void DessineMatrice()
         {
-            int compteur = 0;            
+            int compteur = 0;
             try
             {
                 foreach (LAbelXY labelDeLettre in Controls.OfType<LAbelXY>())
-                {                   
+                {
                     labelDeLettre.Text = DonneesLettres.tableauDeLettres[labelDeLettre.Y, labelDeLettre.X].ToString();
-                    labelDeLettre.Visible = true;                    
+                    labelDeLettre.Visible = true;
                     compteur++;
                 }
             }
@@ -421,15 +421,15 @@ namespace AbreDico
         bool Motexiste(string Mot)
         {
             int lg = Mot.Length;
-            Noeud noeudCourant = this.NoeudRacine;
+            DictonaryTreeNode noeudCourant = this.NoeudRacine;
             for (int i = 0; i < lg; i++) // Faire pour toutes les lettres du mot
             {
                 char lettreCourante = Mot[i];
-                if (noeudCourant.DictionnaireDesSousNoeuds != null) // le Dictionnaire du noeud examiné n'est pas null
+                if (noeudCourant.NextLetters != null) // le Dictionnaire du noeud examiné n'est pas null
                 {
-                    if (noeudCourant.DictionnaireDesSousNoeuds.ContainsKey(lettreCourante))//le dico contient la lettre du mot
+                    if (noeudCourant.NextLetters.ContainsKey(lettreCourante))//le dico contient la lettre du mot
                     {
-                        noeudCourant = noeudCourant.DictionnaireDesSousNoeuds[lettreCourante]; // affectation du noeud trouvé pour la lettre pour le tour de boucle suivant                           
+                        noeudCourant = noeudCourant.NextLetters[lettreCourante]; // affectation du noeud trouvé pour la lettre pour le tour de boucle suivant                           
                     }
                     else
                     {  // la lettre n'est pas trouvée !
@@ -449,16 +449,17 @@ namespace AbreDico
                     }// si fin de mot c'est normal on retourne true
                 }
             }
-            if (noeudCourant.FinDeMot)
+            if (noeudCourant.IsLetterEndOfWord)
             { return true; }
             else
             { return false; }
         }
+
         private void GereClicSurLettre(string nomDuLabel, int ligne, int colonne)
         {
             DonneesLettres.caseChoisie.X = colonne;
             DonneesLettres.caseChoisie.Y = ligne;
-           // ParcoursDeMatrice.TrouveVoisinePossible(colonne, ligne);
+            // ParcoursDeMatrice.TrouveVoisinePossible(colonne, ligne);
             if (EstVoisineDeCasePrecedente())
             {
 
@@ -494,20 +495,15 @@ namespace AbreDico
             DessineMatrice();
         }
 
-
-
-
-       
-
         private void Bt_test_Click(object sender, EventArgs e)
         {
             textBox2.Clear();
             ParcoursDeMatrice.CrerCaseRacine(0, 0);
-            ParcoursDeMatrice.Test+="\r\n"+ ParcoursDeMatrice.CompteurGeneral.ToString();
+            ParcoursDeMatrice.Test += "\r\n" + ParcoursDeMatrice.CompteurGeneral.ToString();
             this.textBox2.Text = ParcoursDeMatrice.Test;
         }
-        
-      
+
+
     }// fin classe Form1
 
 }// FIn  namspace

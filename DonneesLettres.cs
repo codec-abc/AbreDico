@@ -31,11 +31,11 @@ namespace AbreDico
             ScoreTotal += ScoreMot;
         }
     }
-   /* public class Case
-    {
-        public Couple coordonnées;
-        public Dictionary<char, Case> DictionnaireDesCasesVoisiness;
-    }*/
+    /* public class Case
+     {
+         public Couple coordonnées;
+         public Dictionary<char, Case> DictionnaireDesCasesVoisiness;
+     }*/
     public class Couple
     {
         public int X { get; set; }
@@ -129,23 +129,23 @@ namespace AbreDico
             {
                 TableauDeTravail[j, 3] = tableauDeLettres[0, j];
             }
-            
+
             for (int j = 0; j < 4; j++) // From column 3 to target line 3
             {
-                TableauDeTravail[3 , 3-j] = tableauDeLettres[j, 3];
-            }
-            
-              for (int j = 0; j < 4; j++) // From line 3 to target column 0
-              {
-                  TableauDeTravail[j, 0] = tableauDeLettres[3, j];
-              }
-           
-            for (int j = 0; j < 4; j++) // From column 0 to target line 0
-            {
-                TableauDeTravail[0, 3-j] = tableauDeLettres[j, 0];
+                TableauDeTravail[3, 3 - j] = tableauDeLettres[j, 3];
             }
 
-            for (int j = 1; j <3 ; j++) // From column 1 to target line 1
+            for (int j = 0; j < 4; j++) // From line 3 to target column 0
+            {
+                TableauDeTravail[j, 0] = tableauDeLettres[3, j];
+            }
+
+            for (int j = 0; j < 4; j++) // From column 0 to target line 0
+            {
+                TableauDeTravail[0, 3 - j] = tableauDeLettres[j, 0];
+            }
+
+            for (int j = 1; j < 3; j++) // From column 1 to target line 1
             {
                 TableauDeTravail[1, 3 - j] = tableauDeLettres[j, 1];
             }
@@ -259,7 +259,7 @@ namespace AbreDico
             casePrecedente.X = caseChoisie.X;
             casePrecedente.Y = caseChoisie.Y;
         }
-      
+
     }
 
 }
