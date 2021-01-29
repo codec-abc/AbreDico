@@ -27,10 +27,8 @@ namespace AbreDico
         readonly Color CouleurDefaut = Color.FromName("Navy");
         // Variables de classe      
         public WordDictionary wordDictionary { get; private set; }
+
         //=================================================================
-
-
-
 
         public void CreerMatrice() // Génère aléatoirement des lettres qui sont mises dans le tableau"matrice"
         {
