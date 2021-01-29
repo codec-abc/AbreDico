@@ -228,16 +228,7 @@ namespace AbreDico
             this.bt_Rotation.Text = "Rotation";
             this.bt_Rotation.UseVisualStyleBackColor = true;
             this.bt_Rotation.Click += new System.EventHandler(this.Bt_Rotation_Click);
-            // 
-            // bt_test
-            // 
-            this.bt_test.Location = new System.Drawing.Point(509, 266);
-            this.bt_test.Name = "bt_test";
-            this.bt_test.Size = new System.Drawing.Size(75, 23);
-            this.bt_test.TabIndex = 25;
-            this.bt_test.Text = "test";
-            this.bt_test.UseVisualStyleBackColor = true;
-            this.bt_test.Click += new System.EventHandler(this.Bt_test_Click);
+
             // 
             // Form1
             // 

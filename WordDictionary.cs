@@ -81,6 +81,7 @@ public class WordDictionary
 
         return root; // affecte à NoeudRacineConstructionArbre accessible partout dans form1 la valeur du pointeur de Racine
     }
+
     private static void HandleLetterOfWord(DictonaryTreeNode parentNode, int letterIndex, string Word)  //Création de l'arbre 
     {
         if (Word.Length == 0)
