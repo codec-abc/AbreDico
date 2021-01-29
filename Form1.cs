@@ -26,7 +26,7 @@ namespace AbreDico
         // **** Couleurs de l'environnement
         readonly Color CouleurDefaut = Color.FromName("Navy");
         // Variables de classe      
-        public DictonaryTreeNode NoeudRacine { get; private set; }
+        public WordDictionary wordDictionary { get; private set; }
         //=================================================================
 
 
@@ -229,7 +229,7 @@ namespace AbreDico
             {
                 // le fichier existe : Lecture
                 string[] lignesDico = System.IO.File.ReadAllLines(NomDuDico);
-                NoeudRacine = GestionDesNoeuds.NoeudRacineConstructioArbre(lignesDico);
+                wordDictionary = new WordDictionary(lignesDico);
                 this.pictureBox1.Left += 50;
                 this.pictureBox1.Visible = false;
             }
@@ -250,7 +250,7 @@ namespace AbreDico
         private void VerifMot() // Vérifie si le mot à controler n'est pas un mot déjà utilisé
         {
             this.pictureBox1.Visible = false;
-            if (Motexiste(this.textBox1.Text))
+            if (this.wordDictionary.IsWordValid(this.textBox1.Text))
             { // le mot propose par joueur existe
                 bool MotDejaUtilise = false;
                 for (int cptM = 0; cptM < listBox1.Items.Count; cptM++)
@@ -417,42 +417,6 @@ namespace AbreDico
                 labNotification.Text = " ";
                 return true;
             }
-        }
-        bool Motexiste(string Mot)
-        {
-            int lg = Mot.Length;
-            DictonaryTreeNode noeudCourant = this.NoeudRacine;
-            for (int i = 0; i < lg; i++) // Faire pour toutes les lettres du mot
-            {
-                char lettreCourante = Mot[i];
-                if (noeudCourant.NextLetters != null) // le Dictionnaire du noeud examiné n'est pas null
-                {
-                    if (noeudCourant.NextLetters.ContainsKey(lettreCourante))//le dico contient la lettre du mot
-                    {
-                        noeudCourant = noeudCourant.NextLetters[lettreCourante]; // affectation du noeud trouvé pour la lettre pour le tour de boucle suivant                           
-                    }
-                    else
-                    {  // la lettre n'est pas trouvée !
-                        return false;
-                    }
-                }
-                else
-                {
-                    //le dictionnaire est null
-                    if (i != lg)
-                    {
-                        return false;
-                    } // si ce n'est pas la fin de mot c'est anormal on retourne false
-                    else
-                    {
-                        return true;
-                    }// si fin de mot c'est normal on retourne true
-                }
-            }
-            if (noeudCourant.IsLetterEndOfWord)
-            { return true; }
-            else
-            { return false; }
         }
 
         private void GereClicSurLettre(string nomDuLabel, int ligne, int colonne)
