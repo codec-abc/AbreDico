@@ -22,6 +22,7 @@ public class WordDictionary
 
     public bool IsWordValid(string word)
     {
+        word = word.ToLower();
         int wordLength = word.Length;
         var currentNode = this.m_root;
         for (int i = 0; i < wordLength; i++) // Faire pour toutes les lettres du mot
@@ -74,7 +75,7 @@ public class WordDictionary
         // traitement des mots               
         for (int i = 0; i <= wordList.Length - 1; i++)  // traitement des lettres du mot
         {
-            string mot = wordList[i];
+            string mot = wordList[i].ToLower();
             // Création de la branche correspondant au mot par passage du noeud racine à la prcédure récussive VerifAjouteLettre                     
             HandleLetterOfWord(root, 0, mot);
         }
@@ -96,44 +97,31 @@ public class WordDictionary
             parentNode.NextLetters = new Dictionary<char, DictonaryTreeNode>();
         }
 
-        if (parentNode.NextLetters.ContainsKey(currentLetter))//le dico existe et  si la clé existe
+        DictonaryTreeNode childNode;
+
+        if (!parentNode.NextLetters.ContainsKey(currentLetter))//le dico existe et  si la clé existe
         {
-            foreach (var kvp in parentNode.NextLetters)
-            {  // on cherche la clé (lettre)
-                if (kvp.Key == currentLetter) // clé identifiée 
-                {
-                    letterIndex++; //(pour lettre suivante du mot)
-                    if (letterIndex < Word.Length) //-1 viré
-                    { // si le traitement du mot n'est pas fini on appelle récursivement la procédure 
-                      // en passant le noeud courant le rang incrémenté et le mot en paramètre.
-                      // MessageBox.Show("Le dico du noeud père contient " + l + "du mot " + Word + " On cherche " + Word[rang]);
-                        HandleLetterOfWord(kvp.Value, letterIndex, Word);
-                    }
-                }
-            }
+            childNode = new DictonaryTreeNode
+            {
+                Letter = currentLetter,
+                IsLetterEndOfWord = false
+            };
+
+            parentNode.NextLetters.Add(currentLetter, childNode);
+        } 
+        else
+        {
+            childNode = parentNode.NextLetters[currentLetter];
+        }
+
+        if (letterIndex == Word.Length - 1)
+        {   // dernière lettre du mot  : On ajoute le noeud correspondant
+            childNode.IsLetterEndOfWord = true;
         }
         else
         {
-            //le dico existe et  clé pas trouvée => ajout noeud dans dico
-            DictonaryTreeNode childNode = new DictonaryTreeNode
-            {
-                Letter = currentLetter
-            };
-
-            if (letterIndex == Word.Length - 1)
-            {   // dernière lettre du mot  : On ajoute le noeud correspondant
-                childNode.IsLetterEndOfWord = true;
-                parentNode.NextLetters.Add(currentLetter, childNode);
-                return;
-            }
-
-            else
-            {   // PAS dernière lettre du mot  : On ajoute le noeud correspondant et on incémente rang et on relance récursivement la procédure
-                childNode.IsLetterEndOfWord = false;
-                parentNode.NextLetters.Add(currentLetter, childNode);
-                letterIndex++;
-                HandleLetterOfWord(childNode, letterIndex, Word);
-            }
+            letterIndex++;
+            HandleLetterOfWord(childNode, letterIndex, Word);
         }
     }
 }
