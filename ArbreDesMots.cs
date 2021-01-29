@@ -12,9 +12,9 @@ namespace AbreDico
         public bool FinDeMot { get; set; }
         public Dictionary<char, Noeud> DictionnaireDesSousNoeuds;
     }
-    public class GestionDesNoeuds
-    {        
-        public static Noeud NoeudRacineConstructioArbre(string[] lignesDico)
+    public class ArbreDesMots
+    {
+        public static Noeud NoeudRacineConstructionArbre(string[] lignesDico)
         {
             //création de la racine
             Noeud racine = new Noeud
@@ -30,7 +30,7 @@ namespace AbreDico
                 // Création de la branche correspondant au mot par passage du noeud racine à la prcédure récussive VerifAjouteLettre                     
                 AjoutLettreCouranteSiBesoin(racine, 0, mot);
             }
-            return  racine; // affecte à NoeudRacine accessible partout dans form1 la valeur du pointeur de Racine
+            return racine; // affecte à NoeudRacineConstructionArbre accessible partout dans form1 la valeur du pointeur de Racine
         }
         public static void AjoutLettreCouranteSiBesoin(Noeud noeudParent, int indexLettreCourante, string Word)  //Création de l'arbre 
         {
@@ -83,7 +83,42 @@ namespace AbreDico
                 }
             }
         }
-    
+        public static bool Motexiste(string Mot, Noeud DictionnaireDesMots)
+        { 
+            int lg = Mot.Length;
+            Noeud noeudCourant = DictionnaireDesMots;
+            for (int i = 0; i < lg; i++) // Faire pour toutes les lettres du mot
+            {
+                char lettreCourante = Mot[i];
+                if (noeudCourant.DictionnaireDesSousNoeuds != null) // le Dictionnaire du noeud examiné n'est pas null
+                {
+                    if (noeudCourant.DictionnaireDesSousNoeuds.ContainsKey(lettreCourante))//le dico contient la lettre du mot
+                    {
+                        noeudCourant = noeudCourant.DictionnaireDesSousNoeuds[lettreCourante]; // affectation du noeud trouvé pour la lettre pour le tour de boucle suivant                           
+                    }
+                    else
+                    {  // la lettre n'est pas trouvée !
+                        return false;
+                    }
+                }
+                else
+                {
+                    //le dictionnaire est null
+                    if (i != lg)
+                    {
+                        return false;
+                    } // si ce n'est pas la fin de mot c'est anormal on retourne false
+                    else
+                    {
+                        return true;
+                    }// si fin de mot c'est normal on retourne true
+                }
+            }
+            if (noeudCourant.FinDeMot)
+            { return true; }
+            else
+            { return false; }
+        }
     }
 
 }
