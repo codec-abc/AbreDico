@@ -8,7 +8,7 @@ namespace AbreDico
     {
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-        class LAbelXY : Label
+        class LabelXY : Label
         {
             public int X { get; set; }
             public int Y { get; set; }

@@ -342,7 +342,7 @@ namespace AbreDico
                     cpt++;
                     int pas = 60;
                     //  Label L = new System.Windows.Forms.Label();
-                    LAbelXY L = new LAbelXY();
+                    LabelXY L = new LabelXY();
                     {
                         L.Font = 
                             new System.Drawing.Font(
@@ -380,7 +380,7 @@ namespace AbreDico
         {
             ImageGai.Visible = false;
             ImageTriste.Visible = false;
-            LAbelXY Choisi = (LAbelXY)sender;
+            LabelXY Choisi = (LabelXY)sender;
             //   this.Text = Choisi.X.ToString() + ", " + Choisi.Y.ToString();
             Choisi.Visible = false;
             GereClicSurLettre(Choisi.Name.ToString(), Choisi.Y, Choisi.X);
@@ -392,7 +392,7 @@ namespace AbreDico
             int compteur = 0;
             try
             {
-                foreach (LAbelXY labelDeLettre in Controls.OfType<LAbelXY>())
+                foreach (LabelXY labelDeLettre in Controls.OfType<LabelXY>())
                 {
                     labelDeLettre.Text = m_gameState.GetCellContentAtPosition(labelDeLettre.Y, labelDeLettre.X).ToString();
                     labelDeLettre.Visible = true;
