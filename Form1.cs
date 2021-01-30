@@ -247,8 +247,8 @@ namespace AbreDico
             }
         }
 
-        private void BoutonVerifMot(object sender, EventArgs e)
         // Bouton qui déclenche l'action de vocontroler si le mot estr acceptable        
+        private void BoutonVerifMot(object sender, EventArgs e)
         {
             VerifMot();
             this.textBox1.Clear();
@@ -324,6 +324,8 @@ namespace AbreDico
             labScoreMotJoueur.Text = ("Score du mot");
             labScoreTotal.Text = ("Score de la partie.");
             CreerMatrice();
+            var chemin = new Chemin(m_gameState.GetGrid(), m_dictionary);
+            chemin.TotalExploration();
             DessineMatrice();
         }
 

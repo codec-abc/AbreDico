@@ -99,6 +99,23 @@ namespace AbreDico
                 };
 
         }
+
+        internal char[,] GetGrid()
+        {
+            var result = new char[4, 4];
+            int i = 0;
+
+            for (int y = 0; y < 4; y++)
+            {
+                for (int x = 0; x < 4; x++)
+                {
+                    result[x, y] = m_lettersGrid[i];
+                    i++;
+                }
+            }
+
+            return result;
+        }
     }
 
 }
