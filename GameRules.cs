@@ -9,9 +9,6 @@ namespace AbreDico
     class GameRules
     {
         private char[] m_commonVowel = { 'A', 'E', 'I', 'O', 'U' };
-
-        //private readonly char[] DifficultLetters = { 'W', 'X', 'J', 'Q', 'V', 'K', 'Y', 'H' };
-
         private readonly char[] m_letters = new char[26];
         private readonly int[] m_isLetterVowel = new int[26]; //consonne (0) ou Voyelle (1)
         private readonly int[] m_scoreByLetter = new int[26];

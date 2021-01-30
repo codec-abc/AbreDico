@@ -261,7 +261,8 @@ namespace AbreDico
         {
             this.pictureBox1.Visible = false;
             if (this.m_dictionary.IsWordValid(this.textBox1.Text))
-            { // le mot propose par joueur existe
+            { 
+                // le mot propose par joueur existe
                 bool MotDejaUtilise = false;
                 for (int cptM = 0; cptM < listBox1.Items.Count; cptM++)
                 {   // verifie si le mot a déjà été proposé
@@ -297,14 +298,16 @@ namespace AbreDico
         }
 
         private void TextBox1_Enter(object sender, EventArgs e)
-        {// n'est plus utilisé dans la configuration terminée du jeu
+        {
+            // n'est plus utilisé dans la configuration terminée du jeu
             this.pictureBox1.Visible = true;
             this.ImageGai.Visible = false;
             this.ImageTriste.Visible = false;
         }
 
         private void Button1_Click(object sender, EventArgs e)
-        {   // Réalise un nouveau tirage de lettres et configure l'IHM
+        {   
+            // Réalise un nouveau tirage de lettres et configure l'IHM
             m_gameScore.ResetWordScore();
             NouvelleDonne();
             DessineMatrice();
@@ -313,7 +316,8 @@ namespace AbreDico
         }
 
         private void NouvelleDonne()
-        { //Réalise un nouveau tirage de lettres
+        { 
+            //Réalise un nouveau tirage de lettres
             this.listBox1.Items.Clear();
             m_gameScore.ResetWordScore();
             m_gameScore.ResetTotalScore();
@@ -338,7 +342,15 @@ namespace AbreDico
                     //  Label L = new System.Windows.Forms.Label();
                     LAbelXY L = new LAbelXY();
                     {
-                        L.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        L.Font = 
+                            new System.Drawing.Font(
+                                "Microsoft Sans Serif", 
+                                14F, 
+                                System.Drawing.FontStyle.Bold, 
+                                System.Drawing.GraphicsUnit.Point, 
+                                ((byte)(0))
+                           );
+
                         L.Parent = this;
                     };
                     L.Click += new EventHandler(LableEstChoisi);
@@ -395,7 +407,7 @@ namespace AbreDico
 
         private void GereClicSurLettre(string nomDuLabel, int ligne, int colonne)
         {
-            // ParcoursDeMatrice.TrouveVoisinePossible(colonne, ligne);
+            //ParcoursDeMatrice.TrouveVoisinePossible(colonne, ligne);
             if (m_gameState.IsValidClick(ligne, colonne))
             {
                 labNotification.Text = " ";
