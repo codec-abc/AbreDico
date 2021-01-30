@@ -45,7 +45,6 @@ namespace AbreDico
             this.labScoreTotal = new System.Windows.Forms.Label();
             this.labScoreMotJoueur = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.bt_Rotation = new System.Windows.Forms.Button();
             this.bt_test = new System.Windows.Forms.Button();
             this.panelMIAP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ImageGai)).BeginInit();
@@ -77,7 +76,7 @@ namespace AbreDico
             this.labelMot.Location = new System.Drawing.Point(104, 61);
             this.labelMot.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelMot.Name = "labelMot";
-            this.labelMot.Size = new System.Drawing.Size(123, 25);
+            this.labelMot.Size = new System.Drawing.Size(99, 20);
             this.labelMot.TabIndex = 5;
             this.labelMot.Text = "Mot à vérifier";
             // 
@@ -112,7 +111,7 @@ namespace AbreDico
             this.textBox1.Location = new System.Drawing.Point(22, 90);
             this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(291, 30);
+            this.textBox1.Size = new System.Drawing.Size(291, 26);
             this.textBox1.TabIndex = 3;
             this.textBox1.Enter += new System.EventHandler(this.TextBox1_Enter);
             // 
@@ -173,7 +172,7 @@ namespace AbreDico
             this.labNotification.AutoSize = true;
             this.labNotification.Location = new System.Drawing.Point(15, 20);
             this.labNotification.Name = "labNotification";
-            this.labNotification.Size = new System.Drawing.Size(0, 20);
+            this.labNotification.Size = new System.Drawing.Size(0, 17);
             this.labNotification.TabIndex = 0;
             // 
             // panel2
@@ -189,22 +188,22 @@ namespace AbreDico
             // labScoreTotal
             // 
             this.labScoreTotal.AutoSize = true;
-            this.labScoreTotal.Font = new System.Drawing.Font("Wide Latin", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labScoreTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labScoreTotal.ForeColor = System.Drawing.Color.Lime;
             this.labScoreTotal.Location = new System.Drawing.Point(35, 79);
             this.labScoreTotal.Name = "labScoreTotal";
-            this.labScoreTotal.Size = new System.Drawing.Size(51, 34);
+            this.labScoreTotal.Size = new System.Drawing.Size(25, 26);
             this.labScoreTotal.TabIndex = 1;
             this.labScoreTotal.Text = "0";
             // 
             // labScoreMotJoueur
             // 
             this.labScoreMotJoueur.AutoSize = true;
-            this.labScoreMotJoueur.Font = new System.Drawing.Font("Wide Latin", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labScoreMotJoueur.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labScoreMotJoueur.ForeColor = System.Drawing.Color.Yellow;
             this.labScoreMotJoueur.Location = new System.Drawing.Point(29, 22);
             this.labScoreMotJoueur.Name = "labScoreMotJoueur";
-            this.labScoreMotJoueur.Size = new System.Drawing.Size(51, 34);
+            this.labScoreMotJoueur.Size = new System.Drawing.Size(25, 26);
             this.labScoreMotJoueur.TabIndex = 0;
             this.labScoreMotJoueur.Text = "0";
             // 
@@ -212,31 +211,25 @@ namespace AbreDico
             // 
             this.listBox1.Enabled = false;
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 20;
+            this.listBox1.ItemHeight = 16;
             this.listBox1.Location = new System.Drawing.Point(639, 18);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(195, 444);
+            this.listBox1.Size = new System.Drawing.Size(195, 436);
             this.listBox1.TabIndex = 23;
             // 
-            // bt_Rotation
+            // bt_test
             // 
-            this.bt_Rotation.Location = new System.Drawing.Point(250, 282);
-            this.bt_Rotation.Margin = new System.Windows.Forms.Padding(4);
-            this.bt_Rotation.Name = "bt_Rotation";
-            this.bt_Rotation.Size = new System.Drawing.Size(154, 29);
-            this.bt_Rotation.TabIndex = 24;
-            this.bt_Rotation.Text = "Rotation";
-            this.bt_Rotation.UseVisualStyleBackColor = true;
-            this.bt_Rotation.Click += new System.EventHandler(this.Bt_Rotation_Click);
-
+            this.bt_test.Location = new System.Drawing.Point(0, 0);
+            this.bt_test.Name = "bt_test";
+            this.bt_test.Size = new System.Drawing.Size(75, 23);
+            this.bt_test.TabIndex = 0;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1495, 474);
             this.Controls.Add(this.bt_test);
-            this.Controls.Add(this.bt_Rotation);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -282,7 +275,6 @@ namespace AbreDico
         private System.Windows.Forms.Label labScoreMotJoueur;
         private System.Windows.Forms.Label labScoreTotal;
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Button bt_Rotation;
         private System.Windows.Forms.Button bt_test;
     }
 }
