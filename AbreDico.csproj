@@ -71,7 +71,7 @@
   <ItemGroup>
     <Compile Include="GameScore.cs" />
     <Compile Include="GameRules.cs" />
-    <Compile Include="LAbelXY.cs">
+    <Compile Include="LabelXY.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Point2D.cs" />
