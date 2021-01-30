@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 public class WordDictionary
 {
@@ -77,13 +73,13 @@ public class WordDictionary
         {
             string mot = wordList[i].ToLower();
             // Création de la branche correspondant au mot par passage du noeud racine à la prcédure récussive VerifAjouteLettre                     
-            HandleLetterOfWord(root, 0, mot);
+            HandleWordInsertionAtLetter(root, 0, mot);
         }
 
         return root; // affecte à NoeudRacineConstructionArbre accessible partout dans form1 la valeur du pointeur de Racine
     }
 
-    private static void HandleLetterOfWord(DictonaryTreeNode parentNode, int letterIndex, string Word)  //Création de l'arbre 
+    private static void HandleWordInsertionAtLetter(DictonaryTreeNode currentNode, int letterIndex, string Word)  //Création de l'arbre 
     {
         if (Word.Length == 0)
         {
@@ -92,14 +88,14 @@ public class WordDictionary
 
         char currentLetter = Word[letterIndex];
 
-        if (parentNode.NextLetters == null)
+        if (currentNode.NextLetters == null)
         {   // si le dico n'existe pas on en crée un vierge
-            parentNode.NextLetters = new Dictionary<char, DictonaryTreeNode>();
+            currentNode.NextLetters = new Dictionary<char, DictonaryTreeNode>();
         }
 
         DictonaryTreeNode childNode;
 
-        if (!parentNode.NextLetters.ContainsKey(currentLetter))//le dico existe et  si la clé existe
+        if (!currentNode.NextLetters.ContainsKey(currentLetter))//le dico existe et  si la clé existe
         {
             childNode = new DictonaryTreeNode
             {
@@ -107,11 +103,11 @@ public class WordDictionary
                 IsLetterEndOfWord = false
             };
 
-            parentNode.NextLetters.Add(currentLetter, childNode);
+            currentNode.NextLetters.Add(currentLetter, childNode);
         } 
         else
         {
-            childNode = parentNode.NextLetters[currentLetter];
+            childNode = currentNode.NextLetters[currentLetter];
         }
 
         if (letterIndex == Word.Length - 1)
@@ -121,7 +117,7 @@ public class WordDictionary
         else
         {
             letterIndex++;
-            HandleLetterOfWord(childNode, letterIndex, Word);
+            HandleWordInsertionAtLetter(childNode, letterIndex, Word);
         }
     }
 }

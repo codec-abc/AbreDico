@@ -69,6 +69,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataGame.cs" />
+    <Compile Include="GameCell.cs" />
+    <Compile Include="GameRules.cs" />
+    <Compile Include="LAbelXY.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Point2D.cs" />
     <Compile Include="WordDictionary.cs" />
     <Compile Include="Chemin.cs" />
     <Compile Include="DonneesLettres.cs" />
