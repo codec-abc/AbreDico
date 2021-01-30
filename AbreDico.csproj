@@ -69,7 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataGame.cs" />
+    <Compile Include="GameScore.cs" />
     <Compile Include="GameCell.cs" />
     <Compile Include="GameRules.cs" />
     <Compile Include="LAbelXY.cs">

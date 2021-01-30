@@ -14,22 +14,22 @@ namespace AbreDico
         public readonly Point2D caseChoisie = new Point2D();
         public readonly Point2D casePrecedente = new Point2D();
 
-        private GameRules rules = new GameRules();
+        //private GameRules rules = new GameRules();
 
-        public int PlaceDansLaMatrice(char c)
-        {
-            int i = 0;
-            while (c != rules.GetLetters()[i])
-            {
-                i++;
-                if (i > 15)
-                {
-                    i = -1;
-                    break;
-                }
-            }
-            return i;
-        }
+        //public int PlaceDansLaMatrice(char c)
+        //{
+        //    int i = 0;
+        //    while (c != rules.GetLetters()[i])
+        //    {
+        //        i++;
+        //        if (i > 15)
+        //        {
+        //            i = -1;
+        //            break;
+        //        }
+        //    }
+        //    return i;
+        //}
 
         public int NbDeLaLettreDansMatrice(char c) // renvoi le nombre d'occurences de la lettre dans matrice ([0..15] of char
         {

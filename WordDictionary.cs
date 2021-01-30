@@ -6,7 +6,7 @@ public class WordDictionary
     {
         public char Letter { get; set; }
         public bool IsLetterEndOfWord { get; set; }
-        public Dictionary<char, DictonaryTreeNode> NextLetters;
+        public Dictionary<char, DictonaryTreeNode> NextLetters { get; set; }
     }
 
     private DictonaryTreeNode m_root;
